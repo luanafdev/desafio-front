@@ -15,7 +15,7 @@ export default function LoginPage() {
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setError(""); // Limpa erros anteriores
-
+    
     try {
       // Fazendo a requisição corretamente
       const response = await fetch(
@@ -28,8 +28,8 @@ export default function LoginPage() {
       if (data.length > 0) {
 
         alert(`Bem-vindo, ${data[0].name}!`);
-      } else {
 
+      } else {
         setError("Email ou senha incorretos.");
       }
     } catch (err) {
@@ -61,6 +61,8 @@ export default function LoginPage() {
                 <EmailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
               }
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             </div>
 
@@ -73,6 +75,8 @@ export default function LoginPage() {
                   <KeyIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                 }
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="justify-center mt-16 -ml-16">
