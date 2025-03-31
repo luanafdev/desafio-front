@@ -40,11 +40,11 @@ export default function LoginPage() {
   };
 
   return (
-      <div className=" bg-[#2B2A2A] flex justify-between !rounded-3xl shadow-2xl ">
+      <div className=" bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl w-[900px]">
     
         {/* Div Esquerda */}    
-        <div className=" rounded-3xl object-cover">
-            <Image alt="logo" width={300} scr="/assets/logo.png"></Image>
+        <div className="w-1/2 rounded-3xl ">
+            <Image alt="logo" src={"/assets/logo.png"} className="h-[600px] w-[500px] object-cover "></Image>
         </div>
 
         {/* Div Direita (formulário de login) */}
