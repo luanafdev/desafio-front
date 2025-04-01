@@ -1,47 +1,55 @@
 "use client"
 
 import { useState } from "react";
-import { Accordion, AccordionItem, Input} from "@heroui/react";
-import { Alert } from "@heroui/alert";
+import { Alert, Input} from "@heroui/react";
 import { EmailIcon, PersonIcon, KeyIcon } from "@/components/icons";
 import {Image} from "@heroui/image";
+import { useAlert } from "@/app/contexts/AlertContext";
+
 
 export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { mensagem, tipoAlerta } = useAlert();
+
+  const { showAlert} = useAlert(); 
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setError(""); // Limpa erros anteriores
     
-    try {
-      // Fazendo a requisição corretamente
-      const response = await fetch(
-        `http://localhost:5000/users?email=${email}&password=${password}`
-      );
+    if(email != "" && password != ""){
+      try {
+        // Fazendo a requisição corretamente
+        const response = await fetch(
+          `http://localhost:5000/users?email=${email}&password=${password}`
+        );
+        
+        const data = await response.json();
+  
+        // Verifica se encontrou o usuário
+        if (data.length > 0) {
+          showAlert(`Bem-vindo, ${data[0].name}!`, "success")
+          window.location.href = "/"
 
-      const data = await response.json();
-
-      // Verifica se encontrou o usuário
-      if (data.length > 0) {
-
-        alert(`Bem-vindo, ${data[0].name}!`);
-
-      } else {
-        setError("Email ou senha incorretos.");
+        } else {
+          showAlert("Email ou senha incorretos.", "danger")
+        }
+      } catch (err) {
+  
+        // Caso ocorra algum erro na requisição
+        setError("Erro ao conectar com o servidor.");
       }
-    } catch (err) {
-
-      // Caso ocorra algum erro na requisição
-      setError("Erro ao conectar com o servidor.");
     }
+   
   };
 
   return (
-      <div className=" bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl w-[900px]">
-    
+    <>
+      <div className=" bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl w-[900px] -mt-10">
+        
         {/* Div Esquerda */}    
         <div className="w-1/2 rounded-3xl ">
             <Image alt="logo" src={"/assets/logo.png"} className="h-[600px] w-[500px] object-cover "></Image>
@@ -87,10 +95,17 @@ export default function LoginPage() {
                 L O G I N
               </button>
             </div>
-           
+            <div className="flex mt-12">
+            {mensagem && tipoAlerta && (
+              <div className="w-full flex items-center ">
+                <Alert color={tipoAlerta} title={mensagem}></Alert>
+              </div>
+            )}
+          </div>
           </form>
           {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
       </div>
+    </>
   );
 }
