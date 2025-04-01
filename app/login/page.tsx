@@ -11,14 +11,12 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { mensagem, tipoAlerta } = useAlert();
 
   const { showAlert} = useAlert(); 
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    setError(""); // Limpa erros anteriores
     
     if(email != "" && password != ""){
       try {
@@ -40,7 +38,7 @@ export default function LoginPage() {
       } catch (err) {
   
         // Caso ocorra algum erro na requisição
-        setError("Erro ao conectar com o servidor.");
+        showAlert("Erro ao conectar com o servidor.", "danger");
       }
     }
    
@@ -103,7 +101,6 @@ export default function LoginPage() {
             )}
           </div>
           </form>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
       </div>
     </>
