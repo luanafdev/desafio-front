@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { Button } from "@heroui/button";
 
-export default function Stepper({ steps }) {
+interface Step {
+    component: JSX.Element;
+    icon: JSX.Element;
+  }
+  
+  interface StepperProps {
+    steps: Step[];
+  }
+  
+  export default function Stepper({ steps }: StepperProps) {
   const [activeStep, setActiveStep] = useState(0);
 
   const nextStep = () => {
@@ -15,7 +24,7 @@ export default function Stepper({ steps }) {
   return (
     <div style={{ textAlign: "center" }}>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "20px" }}>
-        {steps.map((step, index) => (
+        {steps.map((step: any, index: any) => (
           <div key={index} style={{ display: "flex", alignItems: "center" }}>
             <Button 
               isIconOnly 
