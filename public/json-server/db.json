@@ -1,34 +1,59 @@
 {
-    "users": [
-     {
-        "id": 1,
-        "name": "Ana Souza",
-        "email": "ana.souza@example.com",
-        "password": "senha123"
-      },
-      {
-        "id": 2,
-        "name": "Carlos Pereira",
-        "email": "carlos.pereira@example.com",
-        "password": "segredo456"
-      },
-      {
-        "id": 3,
-        "name": "Mariana Lima",
-        "email": "mariana.lima@example.com",
-        "password": "mariana789"
-      },
-      {
-        "id": 4,
-        "name": "José Fernandes",
-        "email": "jose.fernandes@example.com",
-        "password": "jozef10"
-      },
-      {
-        "id": 5,
-        "name": "Luciana Alves",
-        "email": "luciana.alves@example.com",
-        "password": "lucyPass12"
-      }
-    ]
-  }
+  "users": [
+    {
+      "id": 1,
+      "nome": "Ana Souza",
+      "email": "ana.souza@example.com",
+      "senha": "senha123",
+      "cpf": "123.456.789-00",
+      "cnpj": "",
+      "razao_social": "",
+      "nome_fantasia": "",
+      "telefone": "(11) 98765-4321"
+    },
+    {
+      "id": 2,
+      "nome": "Carlos Pereira",
+      "email": "carlos.pereira@example.com",
+      "senha": "segredo456",
+      "cpf": "987.654.321-00",
+      "cnpj": "",
+      "razao_social": "",
+      "nome_fantasia": "",
+      "telefone": "(21) 99876-5432"
+    },
+    {
+      "id": 3,
+      "nome": "Mariana Lima",
+      "email": "mariana.lima@example.com",
+      "senha": "mariana789",
+      "cpf": "159.753.486-20",
+      "cnpj": "",
+      "razao_social": "",
+      "nome_fantasia": "",
+      "telefone": "(31) 91234-5678"
+    },
+    {
+      "id": 4,
+      "nome": "José Fernandes",
+      "email": "jose.fernandes@example.com",
+      "senha": "jozef10",
+      "cpf": "258.147.369-00",
+      "cnpj": "",
+      "razao_social": "",
+      "nome_fantasia": "",
+      "telefone": "(41) 93456-7890"
+    },
+    {
+      "id": 5,
+      "nome": "Luciana Alves",
+      "email": "luciana.alves@example.com",
+      "senha": "lucyPass12",
+      "cpf": "",
+      "cnpj": "12.345.678/0001-99",
+      "razao_social": "Luciana Alves Comércio Ltda",
+      "nome_fantasia": "Lucy's Store",
+      "telefone": "(51) 94567-8901"
+    }
+  ]
+}
