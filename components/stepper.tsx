@@ -19,12 +19,12 @@ export default function Stepper({ steps }) {
           <div key={index} style={{ display: "flex", alignItems: "center" }}>
             <Button 
               isIconOnly 
-              color={activeStep === index ? "warning" : "default"}   
+              color={activeStep === index ? "success" : "default"}   
             >
             {step.icon}
             </Button>
             {index < steps.length - 1 && (
-              <div style={{ width: "80px", height: "1.5px", backgroundColor: activeStep >= index + 1 ? "#F5A524" : "gray" }} />
+              <div style={{ width: "80px", height: "1.5px", backgroundColor: activeStep >= index + 1 ? "#17c964" : "gray" }} />
             )}
           </div>
         ))}

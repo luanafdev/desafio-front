@@ -1,7 +1,7 @@
 "use client"
 
 import Stepper from "@/components/stepper";
-import {MoonFilledIcon, SunFilledIcon, PersonIcon} from "@/components/icons"
+import {MoonFilledIcon, SunFilledIcon, PersonIconHero} from "@/components/icons"
 
 export default function CadastroCliente() {
    
@@ -25,7 +25,7 @@ export default function CadastroCliente() {
 
      
     const steps = [
-        { component: <DadosPessoais />, icon: <PersonIcon size={25} /> },
+        { component: <DadosPessoais />, icon: <PersonIconHero size={25} /> },
         { component: <Instituicao />, icon: <SunFilledIcon size={25} /> },
         { component: <Login />, icon: <MoonFilledIcon size={25} /> }
     ];
