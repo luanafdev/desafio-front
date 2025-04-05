@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Alert, Input} from "@heroui/react";
 import { EmailIcon, PersonIcon, KeyIcon } from "@/components/icons";
 import {Image} from "@heroui/image";
-import { useAlert } from "@/app/contexts/AlertContext";
+import { useAlert } from "@/contexts/AlertContext";
 
 
 export default function LoginPage() {
