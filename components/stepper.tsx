@@ -11,9 +11,10 @@ interface Step {
 
 interface StepperProps {
   steps: Step[];
+  handle: () => void
 }
 
-export default function Stepper({ steps }: StepperProps) {
+export default function Stepper({ steps, handle}: StepperProps) {
   const [activeStep, setActiveStep] = useState(0);
   const [error, setError] = useState("");
   const { mensagem, tipoAlerta } = useAlert();
@@ -68,7 +69,7 @@ export default function Stepper({ steps }: StepperProps) {
       {/* Botões de navegação */}
       <div className="mt-6 flex justify-center gap-4 mb-6">
         {activeStep > 0 && <Button onPress={prevStep}>Anterior</Button>}
-        <Button onPress={nextStep}>
+        <Button onPress={activeStep === steps.length - 1? handle : nextStep}>
           {activeStep === steps.length - 1 ? "Finalizar" : "Próximo"}
         </Button>
       </div>

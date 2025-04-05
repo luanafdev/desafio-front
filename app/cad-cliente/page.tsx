@@ -3,7 +3,7 @@
 import Stepper from "@/components/stepper";
 import { BuildingIconHero, LockIconHero, PersonIconHero } from "@/components/icons";
 import { Input } from "@heroui/input";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { formatCPF, formatCNPJ, formatTelefone } from "@/expressoes-regulares/regex";
 
 export default function CadastroCliente() {
@@ -17,11 +17,31 @@ export default function CadastroCliente() {
   const [nomeFantasia, setNomeFantasia] = useState("");
   const [telefone, setTelefone] = useState("");
 
-  function DadosPessoais() {
+  const handleSubmit = async () => {
+    const dadosUsuario = {
+      id,
+      nome,
+      email,
+      senha,
+      cpf,
+      cnpj,
+      razaoSocial,
+      nomeFantasia,
+      telefone
+    };
 
-    useEffect(()=>{
-      setNome(nome)
-    },[nome])
+    await fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dadosUsuario),
+    });
+
+  }
+
+  function DadosPessoais() {
+  
     return (
       <>
         <h2 className="text-lg font-extrabold drop-shadow-lg mt-2">Dados Pessoais</h2>
@@ -118,7 +138,7 @@ export default function CadastroCliente() {
           <h1 className="text-5xl font-bold text-white">Cadastro de usuário</h1>
         </div>
 
-        <Stepper steps={steps} />
+        <Stepper steps={steps} handle={handleSubmit} />
       </div>
     </>
   );
