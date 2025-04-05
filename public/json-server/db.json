@@ -76,6 +76,28 @@
       "razaoSocial": "Ifood",
       "nomeFantasia": "Ifood company",
       "telefone": "(75) 99297-8514"
+    },
+    {
+      "id": null,
+      "nome": "luana",
+      "email": "oi@gmail.com",
+      "senha": "oisenha",
+      "cpf": "084.401.645-48",
+      "cnpj": "05.151.515/1551-51",
+      "razaoSocial": "Inventado",
+      "nomeFantasia": "Inventado ltda",
+      "telefone": "(75) 99297-8514"
+    },
+    {
+      "id": null,
+      "nome": "oi",
+      "email": "oi@gmail.com",
+      "senha": "oisenha",
+      "cpf": "084.016.454-8",
+      "cnpj": "35.453.434/4343-77",
+      "razaoSocial": "oi razao",
+      "nomeFantasia": "oi fantasia",
+      "telefone": "(75) 99297-8514"
     }
   ]
 }

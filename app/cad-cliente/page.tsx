@@ -5,6 +5,9 @@ import { BuildingIconHero, LockIconHero, PersonIconHero } from "@/components/ico
 import { Input } from "@heroui/input";
 import { useState } from "react";
 import { formatCPF, formatCNPJ, formatTelefone } from "@/expressoes-regulares/regex";
+import { useAlert } from "@/contexts/AlertContext";
+import { Alert } from "@heroui/alert";
+
 
 export default function CadastroCliente() {
   const [id, setId] = useState(null);
@@ -16,6 +19,8 @@ export default function CadastroCliente() {
   const [razaoSocial, setRazaoSocial] = useState("");
   const [nomeFantasia, setNomeFantasia] = useState("");
   const [telefone, setTelefone] = useState("");
+
+  const { showAlert} = useAlert(); 
 
   const handleSubmit = async () => {
     const dadosUsuario = {
@@ -38,6 +43,8 @@ export default function CadastroCliente() {
       body: JSON.stringify(dadosUsuario),
     });
 
+    showAlert("Usuário cadastrado com sucesso!", "success")
+    window.location.href = "/"
   }
 
   function DadosPessoais() {
