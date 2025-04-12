@@ -17,26 +17,33 @@ export default function LoginComponent() {
   const { showAlert} = useAlert(); 
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
-
+    
     e.preventDefault();
     
     if(email != "" && password != ""){
       try {
-        // Fazendo a requisição corretamente
-        const response = await fetch(
-          `http://localhost:5000/users?email=${email}&password=${password}`
-        );
         
-        const data = await response.json();
-  
-        // Verifica se encontrou o usuário
-        if (data.length > 0) {
-          showAlert(`Bem-vindo, ${data[0].name}!`, "success")
-          window.location.href = "/"
+          // Fazendo a requisição corretamente
+          const response = await fetch(
+            `http://localhost:5000/users?email=${email}&password=${password}`
+          );
+          
+          const data = await response.json();
+    
+          // Verifica se encontrou o usuário
+          if (data.length > 0) {
+            console.log(data)
+            if (response.ok) {
+             
+              localStorage.setItem('authToken', data.token);
+              localStorage.setItem('user', JSON.stringify(data[0]));
 
-        } else {
-          showAlert("Email ou senha incorretos.", "danger")
-        }
+              showAlert(`Bem-vindo, ${data[0].name}!`, "success")
+              window.location.href = "/"
+            }
+          } else {
+            showAlert("Email ou senha incorretos.", "danger")
+          }
       } catch (err) {
   
         // Caso ocorra algum erro na requisição
