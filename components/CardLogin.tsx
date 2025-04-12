@@ -5,9 +5,10 @@ import { Alert, Input} from "@heroui/react";
 import { EmailIcon, PersonIcon, KeyIcon } from "@/components/icons";
 import {Image} from "@heroui/image";
 import { useAlert } from "@/contexts/AlertContext";
+import SideBar from "./SideBar";
 
 
-export default function LoginPage() {
+export default function LoginComponent() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +17,7 @@ export default function LoginPage() {
   const { showAlert} = useAlert(); 
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
+
     e.preventDefault();
     
     if(email != "" && password != ""){
@@ -46,7 +48,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className=" bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl w-[900px] -mt-10">
+      <div className=" bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl w-[1000px] h-[580px] ml-8">
         
         {/* Div Esquerda */}    
         <div className="w-1/2 rounded-3xl ">

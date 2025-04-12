@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@heroui/button";
 import { useAlert } from "@/contexts/AlertContext";
 import { Alert } from "@heroui/alert";
+import { cn } from "@heroui/theme";
 
 interface Step {
   component: JSX.Element;
@@ -37,6 +38,16 @@ export default function Stepper({ steps, handle}: StepperProps) {
   };
 
   return (
+    <>
+     {/* Alerta */}
+     {mensagem && tipoAlerta && (
+      <div className="w-[500px] h-[20px] mb-4 flex items-center p-8">
+          <Alert
+            color={tipoAlerta}
+            title={mensagem}
+          />        
+      </div>
+    )}
     <div className="text-center">
       {/* Barra de progresso */}
       <div className="flex justify-center mb-6">
@@ -59,13 +70,6 @@ export default function Stepper({ steps, handle}: StepperProps) {
       {/* Conteúdo da etapa atual */}
       <div>{steps[activeStep].component}</div>
 
-      {/* Alerta */}
-      {mensagem && tipoAlerta && (
-        <div className="w-full flex items-center p-8">
-          <Alert color={tipoAlerta} title={mensagem}></Alert>
-        </div>
-      )}
-
       {/* Botões de navegação */}
       <div className="mt-6 flex justify-center gap-4 mb-6">
         {activeStep > 0 && <Button onPress={prevStep}>Anterior</Button>}
@@ -73,6 +77,8 @@ export default function Stepper({ steps, handle}: StepperProps) {
           {activeStep === steps.length - 1 ? "Finalizar" : "Próximo"}
         </Button>
       </div>
+
     </div>
+    </>
   );
 }
