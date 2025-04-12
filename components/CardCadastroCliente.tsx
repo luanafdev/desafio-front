@@ -5,11 +5,9 @@ import { BuildingIconHero, LockIconHero, PersonIconHero } from "@/components/ico
 import { Input } from "@heroui/input";
 import { useState } from "react";
 import { formatCPF, formatCNPJ, formatTelefone } from "@/expressoes-regulares/regex";
-import { useAlert } from "@/contexts/AlertContext";
-import { Alert } from "@heroui/alert";
+import { useAlert } from "@/contexts/AlertContext"; 
 
-
-export default function CadastroCliente() {
+export default function CardCadastroCliente() {
   const [id, setId] = useState(null);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -20,7 +18,7 @@ export default function CadastroCliente() {
   const [nomeFantasia, setNomeFantasia] = useState("");
   const [telefone, setTelefone] = useState("");
 
-  const { showAlert} = useAlert(); 
+    const {showAlert} = useAlert()
 
   const handleSubmit = async () => {
     const dadosUsuario = {
@@ -51,7 +49,7 @@ export default function CadastroCliente() {
   
     return (
       <>
-        <h2 className="text-lg font-extrabold drop-shadow-lg mt-2">Dados Pessoais</h2>
+        <h2 className="text-lg font-extrabold drop-shadow-lg mt-2 ">Dados Pessoais</h2>
         <div className="grid gap-3 mt-8">
           {/* Nome */}
           <Input
@@ -140,7 +138,7 @@ export default function CadastroCliente() {
 
   return (
     <>
-      <div className="flex flex-col bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl shadow-black w-[900px]">
+      <div className="flex flex-col bg-[#2B2A2A] flex justify-center items-center !rounded-3xl shadow-2xl shadow-black w-[1000px] ml-12">
         <div className="justify-center p-8 mb-8">
           <h1 className="text-5xl font-bold text-white">Cadastro de usuário</h1>
         </div>

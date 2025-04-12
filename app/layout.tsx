@@ -43,9 +43,9 @@ export default function RootLayout({
         )}
       >
       <Providers themeProps={{ attribute: "class" }}>
-          <div className="relative flex flex-col h-screen bg-[#333131] bg-[url(/assets/bg-green.png)] bg-repeat bg-center">
+          <div className="relative flex flex-col h-screen bg-[#333131]">
           <AlertProvider> {/* Envolvendo toda a aplicação */}
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow  bg-[#333131] bg-[url(/assets/bg-green.png)] bg-repeat bg-center">
+            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow ">
               {children}
             </main>
         </AlertProvider>
