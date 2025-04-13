@@ -1,6 +1,6 @@
 "use client";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import LoginIcon from '@mui/icons-material/Login';
+
+import PersonIcon from '@mui/icons-material/Person';
 import SideBar from "@/components/SideBar";
 import CardMeuPerfil from '@/components/CardMeuPerfil';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ type UserData = {
   razaoSocial: string;
   nomeFantasia: string;
   telefone: string;
+  url_foto: string;
 };
 
 export default function LoginPage() {
@@ -22,17 +23,22 @@ export default function LoginPage() {
   const [user, setUser] = useState<UserData | null>(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser) as UserData);
     } 
+    else{
+      window.location.href = '/login';
+    }
+    
   }, []); 
 
 
  const items = [
   {
-    tituloItem: `Bem vinda, ${user?.nome}`,
-    icon: PersonAddIcon,
+    tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
+    icon: PersonIcon,
     content: <CardMeuPerfil usuario={user}/>,
   },
  ];
@@ -40,7 +46,7 @@ export default function LoginPage() {
  return (
   <SideBar
     className="w-1/2"
-    titulo="Bem vinda, Luana!"
+    titulo={`Bem vinda, ${user?.nome.split(" ")[0]}`}
     items={items} conteudo={<CardMeuPerfil usuario={user}/>}
   />
   );

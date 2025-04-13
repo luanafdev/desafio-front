@@ -14,10 +14,10 @@ type SideBarProps = {
   className: string
 };
 
-export default function SideBar({ conteudo, items = [], className}: SideBarProps) {
+export default function SideBar({ conteudo, items = [], className, titulo}: SideBarProps) {
   const [conteudoDireito, setConteudoDireito] = useState(conteudo);
   const [activeIndex, setActiveIndex] = useState<number | null>(0); // Add state for active index
-  const [headerTitulo, setHeaderTitulo] = useState("Cadastre-se aqui!"); // Add state for active index
+  const [headerTitulo, setHeaderTitulo] = useState(titulo); // Add state for active index
 
   const handleSelection = (itemContent: React.ReactNode, index: number, titulo: string) => {
     setConteudoDireito(itemContent);
@@ -47,8 +47,8 @@ export default function SideBar({ conteudo, items = [], className}: SideBarProps
         })}
         </ul>
       </aside>
-      <div className="flex-1 p-6 rounded-xl bg-[#2B2A2A] text-white ">
-        <h1 className="text-2xl font-bold mb-8">{headerTitulo}</h1>
+      <div className="flex-1 p-4 rounded-xl bg-[#2B2A2A] text-white ">
+        <h1 className="text-2xl font-poppins text-[18px] font-light font-small text-[20px] mb-8">{headerTitulo}</h1>
         {conteudoDireito}
       </div>
     </div>

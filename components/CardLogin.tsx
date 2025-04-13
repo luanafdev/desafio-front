@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react";
-import { Alert, Input} from "@heroui/react";
+import { Input} from "@heroui/react";
+import { Alert} from "@heroui/alert";
 import { EmailIcon, PersonIcon, KeyIcon } from "@/components/icons";
 import {Image} from "@heroui/image";
 import { useAlert } from "@/contexts/AlertContext";
-import SideBar from "./SideBar";
 
 
 export default function LoginComponent() {
@@ -32,12 +32,9 @@ export default function LoginComponent() {
     
           // Verifica se encontrou o usuário
           if (data.length > 0) {
-            console.log(data)
             if (response.ok) {
              
-              localStorage.setItem('authToken', data.token);
               localStorage.setItem('user', JSON.stringify(data[0]));
-
               showAlert(`Bem-vindo, ${data[0].name}!`, "success")
               window.location.href = "/"
             }
