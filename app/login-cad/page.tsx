@@ -14,7 +14,7 @@ export default function LoginPage() {
       content: <CardCadastroCliente></CardCadastroCliente>,
     },
     {
-      tituloItem: "Faça login aqui",
+      tituloItem: "Faça login aqui!",
       icon: LoginIcon,
       content: <CardLogin></CardLogin>,
     },

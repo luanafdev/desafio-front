@@ -4,6 +4,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import SideBar from "@/components/SideBar";
 import CardMeuPerfil from '@/components/CardMeuPerfil';
 import { useEffect, useState } from 'react';
+import SettingsIcon from '@mui/icons-material/Settings';
+import EventIcon from '@mui/icons-material/Event';
+import  Settings  from '@mui/icons-material/Settings';
+import AnimatedImage from '@/components/AnimatedImage';
 
 type UserData = {
   id: number | null;
@@ -33,7 +37,7 @@ export default function LoginPage() {
     }
     
   }, []); 
-
+  
 
  const items = [
   {
@@ -41,13 +45,28 @@ export default function LoginPage() {
     icon: PersonIcon,
     content: <CardMeuPerfil usuario={user}/>,
   },
+  {
+    tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
+    icon: SettingsIcon,
+    content: <CardMeuPerfil usuario={user}/>,
+  },
+  {
+    tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
+    icon: EventIcon,
+    content: <CardMeuPerfil usuario={user}/>,
+  },
  ];
 
  return (
   <SideBar
-    className="w-1/2"
-    titulo={`Bem vinda, ${user?.nome.split(" ")[0]}`}
-    items={items} conteudo={<CardMeuPerfil usuario={user}/>}
+    className="-mt-8"
+    titulo="Configurações da Conta e Preferências"
+    items={items} conteudo={<AnimatedImage
+      src="/assets/img-settings.png"
+      alt="settings"
+      width="w-[900px]"
+      delay={0.3}
+    />}
   />
   );
 }

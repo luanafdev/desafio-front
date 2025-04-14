@@ -1,5 +1,8 @@
-import { Divider } from "@heroui/react";
+"use client"
+
 import { useState } from "react";
+import { useRouter } from 'next/router';
+import { usePathname } from "next/navigation";
 
 type SideBarItem = {
   icon: React.ElementType;
@@ -16,7 +19,11 @@ type SideBarProps = {
 
 export default function SideBar({ conteudo, items = [], className, titulo}: SideBarProps) {
   const [conteudoDireito, setConteudoDireito] = useState(conteudo);
-  const [activeIndex, setActiveIndex] = useState<number | null>(0); // Add state for active index
+
+  const router = usePathname();
+  console.log(router)
+
+  const [activeIndex, setActiveIndex] = useState<number | null>(router != '/settings'? 0 : null); // Add state for active index
   const [headerTitulo, setHeaderTitulo] = useState(titulo); // Add state for active index
 
   const handleSelection = (itemContent: React.ReactNode, index: number, titulo: string) => {

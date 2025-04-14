@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { formatTelefone } from '@/expressoes-regulares/regex';
 import { useAlert } from '@/contexts/AlertContext';
 
+
 type UserData = {
   id: number | null;
   nome: string;
@@ -71,7 +72,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
   
 
   return (
-    <div className='flex justify-center items-center mt-4 p-4 w-[900px]'>
+    <div className='flex justify-center items-center mt-1 p-4 w-[900px]'>
 
       
       <div className='w-full  h-[600px] bg-[#636262] rounded-2xl '>
@@ -133,7 +134,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
               "!cursor-text",
             ],
           }} />
-          <Input label="Telefone" color="default" defaultValue={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
+          <Input label="Telefone" color="default" defaultValue  ={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
