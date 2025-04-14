@@ -5,6 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 import { useAlert } from '@/contexts/AlertContext';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import InputImage from './InputImage';
 
 type UserData = {
   id: number | null;
@@ -92,103 +93,131 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
         </div>
 
 
-        <div className="w-2/3 grid grid-cols-2 gap-4 grid-rows-3 p-8 py-2">
+        <div className="grid grid-cols-3 gap-4 p-8 py-2">
 
-          <Input label="Razão Social" defaultValue={usuario?.razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "shadow-xl",
-              "bg-default-200/50",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focus=true]:bg-default-200/50",
-              "dark:group-data-[focus=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }} />
+            {/* Inputs normais ocupando 2/3 */}
+            <div className="col-span-2 grid grid-cols-2 grid-rows-2 gap-4">
+            <Input
+                label="Razão Social"
+                defaultValue={usuario?.razaoSocial}
+                onChange={(e) => setRazaoSocial(e.target.value)}
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
 
-          <Input label="Nome Fantasia" defaultValue={usuario?.nomeFantasia} onChange={(e) => setNomeFantasia(e.target.value)} classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "shadow-xl",
-              "bg-default-200/50",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focus=true]:bg-default-200/50",
-              "dark:group-data-[focus=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }} />
+            <Input
+                label="Nome Fantasia"
+                defaultValue={usuario?.nomeFantasia}
+                onChange={(e) => setNomeFantasia(e.target.value)}
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
 
-          <NumberInput label="Desconto" value={usuario?.desconto} onValueChange={setDesconto} startContent={
-            <div className="pointer-events-none flex items-center">
-              <span className="text-default-400 text-small">%</span>
+            <NumberInput
+                label="Desconto"
+                value={usuario?.desconto}
+                onValueChange={setDesconto}
+                startContent={
+                <div className="pointer-events-none flex items-center">
+                    <span className="text-default-400 text-small">%</span>
+                </div>
+                }
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/0",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
+
+            <NumberInput
+                label="Qtd. Min. para desconto"
+                defaultValue={usuario?.qtdMin}
+                onValueChange={setQtdMin}
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/0",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
             </div>
-          }
-          classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "shadow-xl",
-              "bg-default-200/0",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focus=true]:bg-default-200/50",
-              "dark:group-data-[focus=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }} />
+            
+            {/* Input de imagem ocupando 1/3 */}
+            <div className="flex flex-col justify-center items-center">
+                <label className='font-light font-poppins -mt-4 -ml-[170px] mb-2'>Banners</label>
+                <InputImage/>
+            </div>
+        </div>
 
-          <NumberInput label="Qtd. Min. para desconto" defaultValue={usuario?.qtdMin} onValueChange={setQtdMin}  classNames={{
-            label: "text-black/50 dark:text-white/90",
-            input: [
-              "bg-transparent",
-              "text-black/90 dark:text-white/90",
-              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
-            ],
-            innerWrapper: "bg-transparent",
-            inputWrapper: [
-              "shadow-xl",
-              "bg-default-200/0",
-              "dark:bg-default/60",
-              "backdrop-blur-xl",
-              "backdrop-saturate-200",
-              "hover:bg-default-200/70",
-              "dark:hover:bg-default/70",
-              "group-data-[focus=true]:bg-default-200/50",
-              "dark:group-data-[focus=true]:bg-default/60",
-              "!cursor-text",
-            ],
-          }} />
-            
-            
-        </div>  
 
           <div className="grid w-1/2 p-6 -mt-8">
             <h2 className="text-sm font-light font-poppins mt-16">Documento</h2>
@@ -201,12 +230,12 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
             </div>
           </div>
 
-        <div className="relative">
-          <Button className="absolute right-6 bottom-6 rounded-2xl bg-[#14AE5C]" onPress={handleUpdateUser}>
-            <SaveIcon></SaveIcon>
-            Salvar alterações
-          </Button>
-        </div>
+            <div className="relative">
+            <Button className="absolute right-6 bottom-6 rounded-2xl bg-[#14AE5C]" onPress={handleUpdateUser}>
+                <SaveIcon></SaveIcon>
+                Salvar alterações
+            </Button>
+            </div>
 
         <div className='flex justify-center items-center'>
             {/* Alerta */}
