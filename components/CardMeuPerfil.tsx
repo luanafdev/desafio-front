@@ -26,9 +26,9 @@ interface CardMeuPerfilProps {
 }
 
 const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
-  const [nome, setNome] = useState(usuario?.nome || "");
-  const [email, setEmail] = useState(usuario?.email || "");
-  const [telefone, setTelefone] = useState(usuario?.telefone || "");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -90,7 +90,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
 
         <div className="grid grid-cols-2 grid-rows-2 gap-4 p-6">
 
-          <Input label="Nome" color="default" value={nome} onChange={(e) => setNome(e.currentTarget.value)} classNames={{
+          <Input label="Nome" color="default" defaultValue={usuario?.nome} onChange={(e) => setNome(e.currentTarget.value)} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -112,7 +112,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
             ],
           }} />
 
-          <Input label="Email" type="email" color="default" value={email} onChange={(e) => setEmail(e.currentTarget.value)} classNames={{
+          <Input label="Email" type="email" color="default" defaultValue={usuario?.email} onChange={(e) => setEmail(e.currentTarget.value)} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -133,7 +133,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
               "!cursor-text",
             ],
           }} />
-          <Input label="Telefone" color="default" value={telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
+          <Input label="Telefone" color="default" defaultValue={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
