@@ -6,8 +6,8 @@ import CardMeuPerfil from '@/components/CardMeuPerfil';
 import { useEffect, useState } from 'react';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
-import  Settings  from '@mui/icons-material/Settings';
 import AnimatedImage from '@/components/AnimatedImage';
+import CardConfigLoja from '@/components/CardConfigLoja';
 
 type UserData = {
   id: number | null;
@@ -20,6 +20,8 @@ type UserData = {
   nomeFantasia: string;
   telefone: string;
   url_foto: string;
+  desconto: number;
+  qtdMin: number;
 };
 
 export default function LoginPage() {
@@ -48,7 +50,7 @@ export default function LoginPage() {
   {
     tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
     icon: SettingsIcon,
-    content: <CardMeuPerfil usuario={user}/>,
+    content: <CardConfigLoja usuario={user}/>,
   },
   {
     tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
@@ -64,7 +66,7 @@ export default function LoginPage() {
     items={items} conteudo={<AnimatedImage
       src="/assets/img-settings.png"
       alt="settings"
-      width="w-[900px]"
+      width="w-[700px]"
       delay={0.3}
     />}
   />

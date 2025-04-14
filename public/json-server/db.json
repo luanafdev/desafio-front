@@ -3,14 +3,16 @@
     {
       "id": "3",
       "nome": "Luana Fraga",
-      "email": "",
+      "email": "luana.dev@gmail.com",
       "senha": "luana",
       "cpf": "084.401.645-48",
       "cnpj": "14.380.200/0001-21",
       "razaoSocial": "Ifood",
       "nomeFantasia": "Ifood company",
       "telefone": "(75) 99297-8515",
-      "url_foto": "assets/avatar1.avif"
+      "url_foto": "assets/avatar1.avif",
+      "desconto": "5",
+      "qtdMin": 3
     }
   ]
 }

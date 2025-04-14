@@ -1,13 +1,10 @@
-import { Alert, Avatar, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@heroui/react';
+import { Alert, Avatar, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, NumberInput, Select, useDisclosure } from '@heroui/react';
 import { Input } from '@heroui/input';
 import DocumentScannerOutlinedIcon from '@mui/icons-material/DocumentScannerOutlined';
-import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
-import { Link } from '@heroui/link';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
-import { formatTelefone } from '@/expressoes-regulares/regex';
 import { useAlert } from '@/contexts/AlertContext';
-
+import ColorLensIcon from '@mui/icons-material/ColorLens';
 
 type UserData = {
   id: number | null;
@@ -20,16 +17,22 @@ type UserData = {
   nomeFantasia: string;
   telefone: string;
   url_foto: string;
+  desconto: number;
+  qtdMin: number;
 };
 
-interface CardMeuPerfilProps {
+interface CardConfigLoja {
   usuario: UserData | null;
 }
 
-const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
+
+  const [nomeFantasia, setNomeFantasia] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [desconto, setDesconto] = useState(0);
+  const [qtdMin, setQtdMin] = useState(0);
+
+  const [cores, setCores] = useState<string[]>([]);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -43,9 +46,10 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
     }
   
     const dadosAtualizados = {
-      nome,
-      email,
-      telefone,
+        razaoSocial,
+        nomeFantasia,
+        desconto, 
+        qtdMin
     };
   
     try {
@@ -58,10 +62,10 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
       });
   
       if (response.ok) {
-        showAlert("Usuário atualizado com sucesso!", "success");
+        showAlert("Configurações de loja atualizadas!", "success");
       } else {
         const errorData = await response.json();
-        showAlert("Erro ao atualizar usuário.", "danger");
+        showAlert("Erro ao configurar.", "danger");
         console.error("Erro:", errorData);
       }
     } catch (error) {
@@ -70,7 +74,6 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
     }
   };
   
-
   return (
     <div className='flex justify-center items-center mt-1 p-4 w-[900px]'>
 
@@ -89,9 +92,9 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
         </div>
 
 
-        <div className="grid grid-cols-2 grid-rows-2 gap-4 p-6">
+        <div className="w-2/3 grid grid-cols-2 gap-4 grid-rows-3 p-8 py-2">
 
-          <Input label="Nome" color="default" defaultValue={usuario?.nome} onChange={(e) => setNome(e.currentTarget.value)} classNames={{
+          <Input label="Razão Social" defaultValue={usuario?.razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -113,7 +116,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
             ],
           }} />
 
-          <Input isRequired label="Email" type="email" color="default" defaultValue={usuario?.email} onChange={(e) => setEmail(e.currentTarget.value)} classNames={{
+          <Input label="Nome Fantasia" defaultValue={usuario?.nomeFantasia} onChange={(e) => setNomeFantasia(e.target.value)} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -134,7 +137,13 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
               "!cursor-text",
             ],
           }} />
-          <Input isRequired label="Telefone" color="default" defaultValue  ={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
+
+          <NumberInput label="Desconto" value={usuario?.desconto} onValueChange={setDesconto} startContent={
+            <div className="pointer-events-none flex items-center">
+              <span className="text-default-400 text-small">%</span>
+            </div>
+          }
+          classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -156,30 +165,41 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
             ],
           }} />
 
-          <div></div>
+          <NumberInput label="Qtd. Min. para desconto" defaultValue={usuario?.qtdMin} onValueChange={setQtdMin}  classNames={{
+            label: "text-black/50 dark:text-white/90",
+            input: [
+              "bg-transparent",
+              "text-black/90 dark:text-white/90",
+              "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+            ],
+            innerWrapper: "bg-transparent",
+            inputWrapper: [
+              "shadow-xl",
+              "bg-default-200/0",
+              "dark:bg-default/60",
+              "backdrop-blur-xl",
+              "backdrop-saturate-200",
+              "hover:bg-default-200/70",
+              "dark:hover:bg-default/70",
+              "group-data-[focus=true]:bg-default-200/50",
+              "dark:group-data-[focus=true]:bg-default/60",
+              "!cursor-text",
+            ],
+          }} />
+            
+            
+        </div>  
 
-          <div className="grid w-1/2">
+          <div className="grid w-1/2 p-6 -mt-8">
             <h2 className="text-sm font-light font-poppins mt-16">Documento</h2>
 
             <div className="flex items-center gap-2 mt-4">
               <div className="h-10 w-10 rounded-full bg-[#14AE5C]/15 flex items-center justify-center text-white">
                 <DocumentScannerOutlinedIcon className="w-5 h-5 text-[#14AE5C]" />
               </div>
-              <h2 className="text-sm font-light font-poppins text-white">{usuario?.cpf}</h2>
+              <h2 className="text-sm font-light font-poppins text-white">{usuario?.cnpj}</h2>
             </div>
           </div>
-
-          <div className="-ml-64">
-            <h2 className="text-sm font-light font-poppins mt-16 ml-8">Senha</h2>
-
-            <div className="flex items-center gap-2 mt-4 ml-8">
-              <div className="h-10 w-10 rounded-full bg-[#14AE5C]/15 flex items-center justify-center text-white">
-                <KeyOutlinedIcon className="w-5 h-5 text-[#14AE5C]" />
-              </div>
-              <Link className='font-light font-poppins cursor-pointer text-[#82c9ed]' onPress={onOpen}>Resetar senha</Link>
-            </div>
-          </div>
-        </div>
 
         <div className="relative">
           <Button className="absolute right-6 bottom-6 rounded-2xl bg-[#14AE5C]" onPress={handleUpdateUser}>
@@ -199,35 +219,25 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
                 </div>
             )}
         </div>
-
-        <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">Restauração de senha</ModalHeader>
-              <ModalBody>
-                <Input
-                  
-                  label="Email"
-                  placeholder="Digite seu email"
-                  variant="bordered"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-               
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="success" className='text-white' onPress={() => showAlert("Senha temporária enviada para seu email!" , "success")}>
-                  Restaurar senha
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-      </div>
+            <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
+                <ModalContent>
+                {(onClose) => (
+                    <>
+                    <ModalHeader className="flex flex-col gap-1">Restauração de senha</ModalHeader>
+                    <ModalBody>
+                        
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" variant="flat" onPress={onClose}>
+                        Close
+                        </Button>
+                        
+                    </ModalFooter>
+                    </>
+                )}
+                </ModalContent>
+            </Modal>
+        </div>
 
     </div>
 
@@ -235,4 +245,4 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
 
 }
 
-export default CardMeuPerfil;
+export default CardConfigLoja;
