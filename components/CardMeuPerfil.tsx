@@ -35,39 +35,40 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
   const { mensagem, tipoAlerta } = useAlert();
   const { showAlert } = useAlert();
 
-  const handleSave = async () => {
+  const handleUpdateUser = async () => {
     if (!usuario?.id) {
-      showAlert("Usuário inválido", "danger");
+      showAlert("ID do usuário inválido", "danger");
       return;
     }
-
-    const updatedUser = {
+  
+    const dadosAtualizados = {
       nome,
       email,
       telefone,
     };
-
+  
     try {
-      const response = await fetch(`http://localhost:3000/users/${usuario.id}`, {
-        method: "PATCH", // ou "PUT" se quiser sobrescrever tudo
+      const response = await fetch(`http://localhost:5000/users/${usuario.id}`, {
+        method: "PATCH", // ou "PUT" se quiser substituir tudo
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedUser),
+        body: JSON.stringify(dadosAtualizados),
       });
-
+  
       if (response.ok) {
         showAlert("Usuário atualizado com sucesso!", "success");
       } else {
-        showAlert("Erro ao atualizar usuário.", "danger");
         const errorData = await response.json();
-        console.error("Erro ao atualizar:", errorData);
+        showAlert("Erro ao atualizar usuário.", "danger");
+        console.error("Erro:", errorData);
       }
     } catch (error) {
-      console.error("Erro ao atualizar:", error);
       showAlert("Erro na requisição.", "danger");
+      console.error("Erro ao atualizar:", error);
     }
   };
+  
 
   return (
     <div className='flex justify-center items-center mt-4 p-4 w-[900px]'>
@@ -180,7 +181,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
         </div>
 
         <div className="relative">
-          <Button className="absolute right-6 bottom-6 rounded-2xl bg-[#14AE5C]" onPress={handleSave}>
+          <Button className="absolute right-6 bottom-6 rounded-2xl bg-[#14AE5C]" onPress={handleUpdateUser}>
             <SaveIcon></SaveIcon>
             Salvar alterações
           </Button>
