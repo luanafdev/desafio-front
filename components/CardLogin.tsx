@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react";
-import { Alert, Input} from "@heroui/react";
+import { Input} from "@heroui/react";
+import { Alert} from "@heroui/alert";
 import { EmailIcon, PersonIcon, KeyIcon } from "@/components/icons";
 import {Image} from "@heroui/image";
 import { useAlert } from "@/contexts/AlertContext";
-import SideBar from "./SideBar";
 
 
 export default function LoginComponent() {
@@ -17,26 +17,30 @@ export default function LoginComponent() {
   const { showAlert} = useAlert(); 
 
   const handleLogin = async (e: { preventDefault: () => void; }) => {
-
+    
     e.preventDefault();
     
     if(email != "" && password != ""){
       try {
-        // Fazendo a requisição corretamente
-        const response = await fetch(
-          `http://localhost:5000/users?email=${email}&password=${password}`
-        );
         
-        const data = await response.json();
-  
-        // Verifica se encontrou o usuário
-        if (data.length > 0) {
-          showAlert(`Bem-vindo, ${data[0].name}!`, "success")
-          window.location.href = "/"
-
-        } else {
-          showAlert("Email ou senha incorretos.", "danger")
-        }
+          // Fazendo a requisição corretamente
+          const response = await fetch(
+            `http://localhost:5000/users?email=${email}&password=${password}`
+          );
+          
+          const data = await response.json();
+    
+          // Verifica se encontrou o usuário
+          if (data.length > 0) {
+            if (response.ok) {
+             
+              localStorage.setItem('user', JSON.stringify(data[0]));
+              showAlert(`Bem-vindo, ${data[0].name}!`, "success")
+              window.location.href = "/"
+            }
+          } else {
+            showAlert("Email ou senha incorretos.", "danger")
+          }
       } catch (err) {
   
         // Caso ocorra algum erro na requisição

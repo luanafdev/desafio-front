@@ -14,7 +14,7 @@ export default function LoginPage() {
       content: <CardCadastroCliente></CardCadastroCliente>,
     },
     {
-      tituloItem: "Faça login aqui",
+      tituloItem: "Faça login aqui!",
       icon: LoginIcon,
       content: <CardLogin></CardLogin>,
     },
@@ -23,6 +23,6 @@ export default function LoginPage() {
   return (
     <SideBar
       titulo="Cadastre-se aqui!"
-      items={items} conteudo={<CardCadastroCliente></CardCadastroCliente>}    />
+      items={items} conteudo={<CardCadastroCliente></CardCadastroCliente>} className={''}    />
     );
 }

@@ -1,103 +1,16 @@
 {
   "users": [
     {
-      "id": "1",
-      "nome": "Ana Souza",
-      "email": "ana.souza@example.com",
-      "senha": "senha123",
-      "cpf": "123.456.789-00",
-      "cnpj": "",
-      "razao_social": "",
-      "nome_fantasia": "",
-      "telefone": "(11) 98765-4321"
-    },
-    {
-      "id": "2",
-      "nome": "Carlos Pereira",
-      "email": "carlos.pereira@example.com",
-      "senha": "segredo456",
-      "cpf": "987.654.321-00",
-      "cnpj": "",
-      "razao_social": "",
-      "nome_fantasia": "",
-      "telefone": "(21) 99876-5432"
-    },
-    {
       "id": "3",
-      "nome": "Mariana Lima",
-      "email": "mariana.lima@example.com",
-      "senha": "mariana789",
-      "cpf": "159.753.486-20",
-      "cnpj": "",
-      "razao_social": "",
-      "nome_fantasia": "",
-      "telefone": "(31) 91234-5678"
-    },
-    {
-      "id": "4",
-      "nome": "José Fernandes",
-      "email": "jose.fernandes@example.com",
-      "senha": "jozef10",
-      "cpf": "258.147.369-00",
-      "cnpj": "",
-      "razao_social": "",
-      "nome_fantasia": "",
-      "telefone": "(41) 93456-7890"
-    },
-    {
-      "id": "5",
-      "nome": "Luciana Alves",
-      "email": "luciana.alves@example.com",
-      "senha": "lucyPass12",
-      "cpf": "",
-      "cnpj": "12.345.678/0001-99",
-      "razao_social": "Luciana Alves Comércio Ltda",
-      "nome_fantasia": "Lucy's Store",
-      "telefone": "(51) 94567-8901"
-    },
-    {
-      "id": null,
-      "nome": "luana",
+      "nome": "Luana Fraga",
       "email": "",
-      "senha": "",
-      "cpf": "084.401.645-48",
-      "cnpj": "",
-      "razaoSocial": "",
-      "nomeFantasia": "",
-      "telefone": "(75) 99297-8514"
-    },
-    {
-      "id": null,
-      "nome": "luana",
-      "email": "luana@gmail.com",
       "senha": "luana",
       "cpf": "084.401.645-48",
       "cnpj": "14.380.200/0001-21",
       "razaoSocial": "Ifood",
       "nomeFantasia": "Ifood company",
-      "telefone": "(75) 99297-8514"
-    },
-    {
-      "id": null,
-      "nome": "luana",
-      "email": "oi@gmail.com",
-      "senha": "oisenha",
-      "cpf": "084.401.645-48",
-      "cnpj": "05.151.515/1551-51",
-      "razaoSocial": "Inventado",
-      "nomeFantasia": "Inventado ltda",
-      "telefone": "(75) 99297-8514"
-    },
-    {
-      "id": null,
-      "nome": "oi",
-      "email": "oi@gmail.com",
-      "senha": "oisenha",
-      "cpf": "084.016.454-8",
-      "cnpj": "35.453.434/4343-77",
-      "razaoSocial": "oi razao",
-      "nomeFantasia": "oi fantasia",
-      "telefone": "(75) 99297-8514"
+      "telefone": "(75) 99297-8515",
+      "url_foto": "assets/avatar1.avif"
     }
   ]
 }

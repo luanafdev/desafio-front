@@ -1,4 +1,8 @@
+"use client"
+
 import { useState } from "react";
+import { useRouter } from 'next/router';
+import { usePathname } from "next/navigation";
 
 type SideBarItem = {
   icon: React.ElementType;
@@ -10,12 +14,17 @@ type SideBarProps = {
   titulo: string;
   conteudo: React.ReactNode;
   items?: SideBarItem[];
+  className: string
 };
 
-export default function SideBar({ titulo, conteudo, items = []}: SideBarProps) {
+export default function SideBar({ conteudo, items = [], className, titulo}: SideBarProps) {
   const [conteudoDireito, setConteudoDireito] = useState(conteudo);
-  const [activeIndex, setActiveIndex] = useState<number | null>(0); // Add state for active index
-  const [headerTitulo, setHeaderTitulo] = useState("Cadastre-se aqui!"); // Add state for active index
+
+  const router = usePathname();
+  console.log(router)
+
+  const [activeIndex, setActiveIndex] = useState<number | null>(router != '/settings'? 0 : null); // Add state for active index
+  const [headerTitulo, setHeaderTitulo] = useState(titulo); // Add state for active index
 
   const handleSelection = (itemContent: React.ReactNode, index: number, titulo: string) => {
     setConteudoDireito(itemContent);
@@ -24,8 +33,8 @@ export default function SideBar({ titulo, conteudo, items = []}: SideBarProps) {
   };
 
   return (
-    <div className="w-[1328px] h-[700px] bg-[#2B2A2A] flex rounded-2xl -mt-4">
-      <aside className="w-[50px] text-white shadow-lg p-6 bg-[#2B2A2A] rounded-xl drop-shadow-sm h-[650px]">
+    <div className={className + "w-[1328px] h-[700px] bg-[#2B2A2A] flex rounded-2xl -mt-4"}>
+      <aside className="w-[50px] text-white shadow-lg p-6 bg-[#2B2A2A] rounded-xl drop-shadow-sm h-[700px]">
         <ul className="space-y-4 mt-16 flex flex-col items-center">
         {items.map(({ icon: Icon, content, tituloItem }, index) => {
             const isActive = index === activeIndex;
@@ -33,7 +42,7 @@ export default function SideBar({ titulo, conteudo, items = []}: SideBarProps) {
             return (
                 <li
                 key={index}
-                className={`w-[50px] h-[50px] flex items-center justify-center rounded-md relative overflow-hidden ${ // Adicione relative e overflow-hidden
+                className={`w-[50px] h-[50px] flex items-center justify-center rounded-md relative overflow-hidden mt-10 ${ // Adicione relative e overflow-hidden
                     isActive ? "before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#35604A_0%] before:via-[#14AE5C_0%] before:via-[#17C964_0%] before:to-[#F9F9F9_100%] before:opacity-25" : ""
                 }`}
                 >
@@ -45,9 +54,8 @@ export default function SideBar({ titulo, conteudo, items = []}: SideBarProps) {
         })}
         </ul>
       </aside>
-
-      <div className="flex-1 p-6 rounded-xl bg-[#2B2A2A] text-white ">
-        <h1 className="text-2xl font-bold mb-8">{headerTitulo}</h1>
+      <div className="flex-1 p-4 rounded-xl bg-[#2B2A2A] text-white ">
+        <h1 className="text-2xl font-poppins text-[18px] font-light font-small text-[20px] mb-8">{headerTitulo}</h1>
         {conteudoDireito}
       </div>
     </div>
