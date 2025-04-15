@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
-import FilePresentOutlinedIcon from '@mui/icons-material/FilePresentOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
@@ -26,6 +25,48 @@ export const FileInput = () => {
     multiple: true,
     maxFiles: 2,
   });
+
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleUpload = async (userId: string) => {
+    if (files.length > 0) {
+      const base64Images = await Promise.all(files.map(convertToBase64));
+      const bannersData = base64Images.map(base64Image => ({
+        id_usuario: userId,
+        imagebase64: base64Image,
+      }));
+
+      // Aqui você fará a chamada para o seu json-server
+      console.log('Dados para enviar:', bannersData);
+      // Exemplo de chamada fetch para o json-server (adapte a sua URL)
+      try {
+        const response = await fetch('http://localhost:3000/banners', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bannersData),
+        });
+        if (response.ok) {
+          console.log('Banners enviados com sucesso!');
+          setFiles([]); // Limpar os arquivos após o envio
+        } else {
+          console.error('Erro ao enviar os banners:', response.status);
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+      }
+    } else {
+      console.warn('Nenhuma imagem selecionada para enviar.');
+    }
+  };
 
   return (
     <div className="flex gap-1">
