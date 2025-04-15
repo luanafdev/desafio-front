@@ -86,18 +86,19 @@ export default function LoginPage() {
   {
     tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
     icon: EventIcon,
-    content: <CardMeuPerfil usuario={user}/>,
+    content: <></>,
   },
  ];
 
  return (
   <SideBar
     className="-mt-8"
-    titulo="Configurações da Conta e Preferências"
+    titulo="Configurações e Preferências"
     items={items} conteudo={<AnimatedImage
-      src="/assets/img-settings.png"
+      src="/assets/image.png"
       alt="settings"
       width="w-[700px]"
+      height='h-4/5'
       delay={0.3}
     />}
   />
