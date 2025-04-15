@@ -39,7 +39,38 @@ export default function LoginPage() {
     }
     
   }, []); 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
   
+          if (response.ok) {
+            const userData = await response.json();
+            localStorage.setItem("user", JSON.stringify(userData));
+
+          } else {
+            console.error("Erro ao buscar dados do usuário:", response.status);
+          }
+        } catch (error) {
+          console.error("Erro ao buscar dados do usuário:", error);
+        }
+      } else {
+        console.log("Nenhum usuário encontrado no localStorage.");
+        window.location.href = "/login-cad"
+      }
+    };
+  
+    fetchUserData();
+  }, [user]);
 
  const items = [
   {

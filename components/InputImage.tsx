@@ -1,21 +1,48 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
-export const FileInput = () => {
+export type Banner = {
+  id_usuario: string;
+  imagebase64: string;
+  id?: number; // importante para deletar
+};
+
+interface FileInputProps {
+  banners: Banner[];
+  onChange?: (banners: Banner[]) => void;
+}
+
+export const FileInput = ({ banners: initialBanners, onChange }: FileInputProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [banners, setBanners] = useState<Banner[]>(initialBanners);
+
+  useEffect(() => {
+    setBanners(initialBanners);
+  }, [initialBanners]);
+
+  useEffect(() => {
+    
+    const updateParentBanners = async () => {
+      if (onChange && files.length > 0 && banners.length > 0) {
+        const base64Images = await Promise.all(files.map(convertToBase64));
+        const updatedBanners = base64Images.map((base64Image) => ({
+          id_usuario: banners[0].id_usuario,
+          imagebase64: base64Image,
+        }));
+        // Junta os banners antigos com os novos
+          onChange([...banners, ...updatedBanners]);
+        
+      }
+  };
+    updateParentBanners();
+  }, [files]);
+  
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles((prev) => {
-      const newFiles = [...prev, ...acceptedFiles].slice(0, 2); // Limita a 2
-      return newFiles;
-    });
-  }, []);
-
-  const removeFile = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
-  };
+    setFiles((prev) => [...prev, ...acceptedFiles].slice(0, 2 - banners.length));
+  }, [banners.length]);
 
   const dropzone = useDropzone({
     onDrop,
@@ -26,6 +53,33 @@ export const FileInput = () => {
     maxFiles: 2,
   });
 
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removeBanner = async (bannerId?: number, index?: number) => {
+    if (!bannerId && index !== undefined) {
+      // Fallback: remove do state mesmo sem ID
+      setBanners((prev) => prev.filter((_, i) => i !== index));
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/banners/${bannerId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setBanners((prev) => prev.filter((b) => b.id !== bannerId));
+        console.log('Banner removido do db.json');
+      } else {
+        console.error('Erro ao remover o banner:', response.status);
+      }
+    } catch (error) {
+      console.error('Erro na requisição DELETE:', error);
+    }
+  };
+
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -35,45 +89,27 @@ export const FileInput = () => {
     });
   };
 
-  const handleUpload = async (userId: string) => {
-    if (files.length > 0) {
-      const base64Images = await Promise.all(files.map(convertToBase64));
-      const bannersData = base64Images.map(base64Image => ({
-        id_usuario: userId,
-        imagebase64: base64Image,
-      }));
-
-      // Aqui você fará a chamada para o seu json-server
-      console.log('Dados para enviar:', bannersData);
-      // Exemplo de chamada fetch para o json-server (adapte a sua URL)
-      try {
-        const response = await fetch('http://localhost:5000/banners', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(bannersData),
-        });
-        if (response.ok) {
-          console.log('Banners enviados com sucesso!');
-          setFiles([]); // Limpar os arquivos após o envio
-        } else {
-          console.error('Erro ao enviar os banners:', response.status);
-        }
-      } catch (error) {
-        console.error('Erro na requisição:', error);
-      }
-    } else {
-      console.warn('Nenhuma imagem selecionada para enviar.');
-    }
-  };
-
   return (
     <div className="flex gap-1">
-      {files.length < 2 && <Input dropzone={dropzone} fileCount={files.length} />}
+      {(banners.length + files.length) < 2 && (
+        <Input dropzone={dropzone} fileCount={files.length + banners.length} />
+      )}
+
       <div className="flex gap-4">
-        {files.map((file, index) => (
-          <ImagePreview key={index} file={file} onRemove={() => removeFile(index)} />
+        {banners.length > 0 && banners.map((banner, index) => (
+          <ImagePreview
+            key={`banner-${banner.id || index}`}
+            file={banner.imagebase64}
+            onRemove={() => removeBanner(banner.id, index)}
+          />
+        ))}
+
+        {files.length > 0 && files.map((file, index) => (
+          <ImagePreview
+            key={`file-${index}`}
+            file={file}
+            onRemove={() => removeFile(index)}
+          />
         ))}
       </div>
     </div>
@@ -87,7 +123,6 @@ interface InputProps {
 
 const Input = ({ dropzone, fileCount }: InputProps) => {
   const { getRootProps, getInputProps, isDragActive } = dropzone;
-
   return (
     <div
       {...getRootProps()}
@@ -99,12 +134,10 @@ const Input = ({ dropzone, fileCount }: InputProps) => {
           <FileDownloadOutlinedIcon
             className={`w-10 h-10 mb-3 ${isDragActive ? 'text-blue-500' : 'text-gray-400'}`}
           />
-          {fileCount === 0 && (
-            isDragActive ? (
-              <p className="font-bold text-md text-blue-400">Solte para adicionar</p>
-            ) : (
-              <p className="text-md text-gray-400">Clique ou arraste aqui</p>
-            )
+          {isDragActive ? (
+            <p className="font-bold text-md text-blue-400">Solte para adicionar</p>
+          ) : (
+            <p className="text-md text-gray-400">Clique ou arraste aqui</p>
           )}
         </div>
       </label>
@@ -114,26 +147,38 @@ const Input = ({ dropzone, fileCount }: InputProps) => {
 };
 
 interface ImagePreviewProps {
-  file: File;
-  onRemove: () => void;
+  file: File | string;
+  onRemove?: () => void;
 }
 
 const ImagePreview = ({ file, onRemove }: ImagePreviewProps) => {
-  const imageUrl = URL.createObjectURL(file);
+  let imageUrl: string = '';
+
+  if (typeof file === 'string') {
+    imageUrl = file;
+  } else if (file instanceof File) {
+    try {
+      imageUrl = URL.createObjectURL(file);
+    } catch (err) {
+      console.error('Erro ao criar URL do arquivo:', err);
+    }
+  }
 
   return (
     <div className="relative w-32 h-32 rounded-lg overflow-hidden shadow-md border-2 border-gray-300">
       <img
         src={imageUrl}
-        alt={file.name}
+        alt={file instanceof File ? file.name : 'img'}
         className="object-cover w-full h-full"
       />
-      <button
-        onClick={onRemove}
-        className="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
-      >
-        <CloseOutlinedIcon className="w-4 h-4 text-red-500" />
-      </button>
+      {onRemove && (
+        <button
+          onClick={onRemove}
+          className="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
+        >
+          <CloseOutlinedIcon className="w-4 h-4 text-red-500" />
+        </button>
+      )}
     </div>
   );
 };

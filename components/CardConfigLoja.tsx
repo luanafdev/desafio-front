@@ -2,10 +2,10 @@ import { Alert, Avatar, Button, Modal, ModalBody, ModalContent, ModalFooter, Mod
 import { Input } from '@heroui/input';
 import DocumentScannerOutlinedIcon from '@mui/icons-material/DocumentScannerOutlined';
 import SaveIcon from '@mui/icons-material/Save';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAlert } from '@/contexts/AlertContext';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
 import InputImage from './InputImage';
+import { Banner } from './InputImage';
 
 type UserData = {
   id: number | null;
@@ -33,6 +33,7 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
   const [desconto, setDesconto] = useState(usuario?.desconto);
   const [qtdMin, setQtdMin] = useState(usuario?.qtdMin);
 
+  const [banners, setBanners] = useState<Banner[]>([]);
   const [cores, setCores] = useState<string[]>([]);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -73,8 +74,56 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
       showAlert("Erro na requisição.", "danger");
       console.error("Erro ao atualizar:", error);
     }
+
+    if (banners.length > 0) {
+        try {
+          const response = await fetch("http://localhost:5000/banners", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(banners),
+          });
+      
+          if (!response.ok) {
+            throw new Error("Erro ao salvar os banners");
+          }
+        } catch (error) {
+          console.error(error);
+          showAlert("Erro ao salvar os banners", "danger");
+        }
+    }
   };
   
+  useEffect(() => {
+
+    const fetchBanners = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/banners?id_usuario=${usuario?.id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+      
+          if (response.ok) {
+            const data = await response.json();
+            setBanners(data);
+          } else {
+            const errorData = await response.json();
+            showAlert("Erro ao buscar banners.", "danger");
+            console.error("Erro:", errorData);
+          }
+        } catch (error) {
+          showAlert("Erro na conexão com o servidor.", "danger");
+          console.error("Erro:", error);
+        }
+      };
+
+      fetchBanners();
+  }, [usuario?.id]);
+  
+
   return (
     <div className='flex justify-center items-center mt-1 p-4 w-[900px]'>
 
@@ -214,7 +263,7 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
             {/* Input de imagem ocupando 1/3 */}
             <div className="flex flex-col justify-center items-center">
                 <label className='font-light font-poppins -mt-4 -ml-[170px] mb-2'>Banners</label>
-                <InputImage/>
+                <InputImage banners={banners} onChange={setBanners}/>
             </div>
         </div>
 

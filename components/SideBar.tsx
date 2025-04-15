@@ -21,7 +21,6 @@ export default function SideBar({ conteudo, items = [], className, titulo}: Side
   const [conteudoDireito, setConteudoDireito] = useState(conteudo);
 
   const router = usePathname();
-  console.log(router)
 
   const [activeIndex, setActiveIndex] = useState<number | null>(router != '/settings'? 0 : null); // Add state for active index
   const [headerTitulo, setHeaderTitulo] = useState(titulo); // Add state for active index
