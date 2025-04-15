@@ -29,7 +29,7 @@ export const FileInput = () => {
 
   return (
     <div className="flex gap-1">
-      {files.length < 2 && <Input dropzone={dropzone} />}
+      {files.length < 2 && <Input dropzone={dropzone} fileCount={files.length} />}
       <div className="flex gap-4">
         {files.map((file, index) => (
           <ImagePreview key={index} file={file} onRemove={() => removeFile(index)} />
@@ -41,9 +41,10 @@ export const FileInput = () => {
 
 interface InputProps {
   dropzone: DropzoneState;
+  fileCount: number;
 }
 
-const Input = ({ dropzone }: InputProps) => {
+const Input = ({ dropzone, fileCount }: InputProps) => {
   const { getRootProps, getInputProps, isDragActive } = dropzone;
 
   return (
@@ -57,10 +58,12 @@ const Input = ({ dropzone }: InputProps) => {
           <FileDownloadOutlinedIcon
             className={`w-10 h-10 mb-3 ${isDragActive ? 'text-blue-500' : 'text-gray-400'}`}
           />
-          {isDragActive ? (
-            <p className="font-bold text-md text-blue-400">Solte para adicionar</p>
-          ) : (
-            <p className="text-md text-gray-400">Clique aqui ou arraste</p>
+          {fileCount === 0 && (
+            isDragActive ? (
+              <p className="font-bold text-md text-blue-400">Solte para adicionar</p>
+            ) : (
+              <p className="text-md text-gray-400">Clique ou arraste aqui</p>
+            )
           )}
         </div>
       </label>
