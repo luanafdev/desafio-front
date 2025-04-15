@@ -74,25 +74,7 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
       showAlert("Erro na requisição.", "danger");
       console.error("Erro ao atualizar:", error);
     }
-
-    if (banners.length > 0) {
-        try {
-          const response = await fetch("http://localhost:5000/banners", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(banners),
-          });
-      
-          if (!response.ok) {
-            throw new Error("Erro ao salvar os banners");
-          }
-        } catch (error) {
-          console.error(error);
-          showAlert("Erro ao salvar os banners", "danger");
-        }
-    }
+    
   };
   
   useEffect(() => {
@@ -263,7 +245,7 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
             {/* Input de imagem ocupando 1/3 */}
             <div className="flex flex-col justify-center items-center">
                 <label className='font-light font-poppins -mt-4 -ml-[170px] mb-2'>Banners</label>
-                <InputImage banners={banners} onChange={setBanners}/>
+                <InputImage banners={banners} user_id={usuario?.id!}/>
             </div>
         </div>
 

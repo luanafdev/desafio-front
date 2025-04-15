@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { DropzoneState, useDropzone } from 'react-dropzone';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { randomUUID } from 'crypto';
 
 export type Banner = {
   id_usuario: string;
@@ -11,10 +12,10 @@ export type Banner = {
 
 interface FileInputProps {
   banners: Banner[];
-  onChange?: (banners: Banner[]) => void;
+  user_id: number | undefined;
 }
 
-export const FileInput = ({ banners: initialBanners, onChange }: FileInputProps) => {
+export const FileInput = ({ banners: initialBanners, user_id }: FileInputProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [banners, setBanners] = useState<Banner[]>(initialBanners);
 
@@ -24,19 +25,30 @@ export const FileInput = ({ banners: initialBanners, onChange }: FileInputProps)
 
   useEffect(() => {
     
-    const updateParentBanners = async () => {
-      if (onChange && files.length > 0 && banners.length > 0) {
+  const updateBanners = async () => {
+      if (files.length > 0 || banners.length > 0) {
+
         const base64Images = await Promise.all(files.map(convertToBase64));
+
         const updatedBanners = base64Images.map((base64Image) => ({
-          id_usuario: banners[0].id_usuario,
+          id: crypto.randomUUID(),
+          id_usuario: user_id,
           imagebase64: base64Image,
         }));
-        // Junta os banners antigos com os novos
-          onChange([...banners, ...updatedBanners]);
-        
+
+        updatedBanners.map(async (banner) => {
+          await fetch("http://localhost:5000/banners", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(banner),
+          });
+        })
+
       }
   };
-    updateParentBanners();
+    updateBanners();
   }, [files]);
   
 
