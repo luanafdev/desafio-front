@@ -47,7 +47,7 @@ export const FileInput = () => {
       console.log('Dados para enviar:', bannersData);
       // Exemplo de chamada fetch para o json-server (adapte a sua URL)
       try {
-        const response = await fetch('http://localhost:3000/banners', {
+        const response = await fetch('http://localhost:5000/banners', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
