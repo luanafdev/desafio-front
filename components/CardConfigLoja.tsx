@@ -28,10 +28,10 @@ interface CardConfigLoja {
 
 const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
 
-  const [nomeFantasia, setNomeFantasia] = useState("");
-  const [razaoSocial, setRazaoSocial] = useState("");
-  const [desconto, setDesconto] = useState(0);
-  const [qtdMin, setQtdMin] = useState(0);
+  const [nomeFantasia, setNomeFantasia] = useState(usuario?.nomeFantasia);
+  const [razaoSocial, setRazaoSocial] = useState(usuario?.razaoSocial);
+  const [desconto, setDesconto] = useState(usuario?.desconto);
+  const [qtdMin, setQtdMin] = useState(usuario?.qtdMin);
 
   const [cores, setCores] = useState<string[]>([]);
 

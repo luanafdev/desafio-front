@@ -11,8 +11,8 @@
       "nomeFantasia": "Ifood company",
       "telefone": "(75) 99297-8515",
       "url_foto": "assets/avatar1.avif",
-      "desconto": "5",
-      "qtdMin": 3
+      "desconto": 7,
+      "qtdMin": 5
     }
   ]
 }
