@@ -113,7 +113,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
             ],
           }} />
 
-          <Input label="Email" type="email" color="default" defaultValue={usuario?.email} onChange={(e) => setEmail(e.currentTarget.value)} classNames={{
+          <Input isRequired label="Email" type="email" color="default" defaultValue={usuario?.email} onChange={(e) => setEmail(e.currentTarget.value)} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
@@ -134,7 +134,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
               "!cursor-text",
             ],
           }} />
-          <Input label="Telefone" color="default" defaultValue  ={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
+          <Input isRequired label="Telefone" color="default" defaultValue  ={usuario?.telefone} onChange={(e) => setTelefone(formatTelefone(e.currentTarget.value))} classNames={{
             label: "text-black/50 dark:text-white/90",
             input: [
               "bg-transparent",
