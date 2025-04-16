@@ -13,6 +13,8 @@ const config = {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
         poppins: ['Poppins', 'sans-serif'],
+        eater: ['Eater', 'cursive'],
+        dela: ['var(--font-dela-gothic-one)', 'cursive'],
       },
     },
   },
