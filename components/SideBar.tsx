@@ -32,7 +32,7 @@ export default function SideBar({ conteudo, items = [], className, titulo}: Side
   };
 
   return (
-    <div className={className + "w-[1328px] h-[700px] bg-[#2B2A2A] flex rounded-2xl -mt-4"}>
+    <div className={className + "w-[1328px] h-[700px] bg-[#2B2A2A] flex rounded-2xl mt-6"}>
       <aside className="w-[50px] text-white shadow-lg p-6 bg-[#2B2A2A] rounded-xl drop-shadow-sm h-[700px]">
         <ul className="space-y-4 mt-16 flex flex-col items-center">
         {items.map(({ icon: Icon, content, tituloItem }, index) => {
