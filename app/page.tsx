@@ -20,6 +20,13 @@ export default function Home() {
           alt="label"
           className="w-[100px] ml-2"
         />
+
+        <div className='absolute right-16'>
+          <Button className='text-white border-white rounded-3xl' variant="bordered">
+            Login
+          </Button>
+        </div>
+        
         <AnimatedImage
           src="/assets/billie 1.png"
           alt="Imagem sobre o fundo"
