@@ -51,6 +51,11 @@ export default function Home() {
         <ArrowForwardIosIcon color="primary" sx={{ fontSize: 80 }} className='-mt-16 -ml-16 opacity-45'/>
       </div>
 
+      <div className='flex justify-center items-center mt-28'>
+          <Button size='lg' className='text-white border-white rounded-3xl bg-[#F5167E] shadow-md' >
+            Comprar ticket
+          </Button>
+        </div>
 
     </section>
   );
