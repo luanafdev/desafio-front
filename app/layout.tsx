@@ -48,10 +48,10 @@ export default function RootLayout({
         )}
       >
       <Providers themeProps={{ attribute: "class" }}>
-          <div className="relative flex flex-col h-screen w-screen bg-[#333131]">
+          <div className="relative flex flex-col min-h-screen w-full bg-[#333131]">
           <AlertProvider> {/* Envolvendo toda a aplicação */}
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-            <main className="container mx-auto flex-grow ">
+            <main className="w-full flex-grow ">
               {children}
             </main>
         </AlertProvider>
