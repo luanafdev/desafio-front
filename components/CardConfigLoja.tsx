@@ -33,9 +33,6 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
   const [desconto, setDesconto] = useState(usuario?.desconto);
   const [qtdMin, setQtdMin] = useState(usuario?.qtdMin);
 
-  const [banners, setBanners] = useState<Banner[]>([]);
-  const [cores, setCores] = useState<string[]>([]);
-
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   const { mensagem, tipoAlerta } = useAlert();
@@ -77,35 +74,6 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
     
   };
   
-  useEffect(() => {
-
-    const fetchBanners = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/banners?id_usuario=${usuario?.id}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-      
-          if (response.ok) {
-            const data = await response.json();
-            setBanners(data);
-          } else {
-            const errorData = await response.json();
-            showAlert("Erro ao buscar banners.", "danger");
-            console.error("Erro:", errorData);
-          }
-        } catch (error) {
-          showAlert("Erro na conexão com o servidor.", "danger");
-          console.error("Erro:", error);
-        }
-      };
-
-      fetchBanners();
-  }, [usuario?.id]);
-  
-
   return (
     <div className='flex justify-center items-center mt-1 p-4 w-[900px]'>
 
@@ -241,15 +209,8 @@ const CardConfigLoja: React.FC<CardConfigLoja> = ({ usuario }) => {
                 }}
             />
             </div>
-            
-            {/* Input de imagem ocupando 1/3 */}
-            <div className="flex flex-col justify-center items-center">
-                <label className='font-light font-poppins -mt-4 -ml-[170px] mb-2'>Banners</label>
-                <InputImage banners={banners} user_id={usuario?.id!}/>
-            </div>
+
         </div>
-
-
           <div className="grid w-1/2 p-6 -mt-8">
             <h2 className="text-sm font-light font-poppins mt-16">Documento</h2>
 

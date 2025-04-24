@@ -160,35 +160,45 @@ export default function Home() {
 
       {/* Em destaque */}
       <div className="mt-36 mb-16 w-full px-4">
-        <img src="/assets/Em destaque.png" alt="label" className="w-[350px] ml-20" />
+        <img src="/assets/Em destaque.png" alt="label" className="w-[250px] ml-20" />
 
         <div className="mt-16 mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {eventosDestaque.map((evento, i) => (
             <CardEvento key={i} evento={evento} />
           ))}
         </div>
-      </div>
+          <div className=' mt-32 flex justify-center items-center'>
+            <Button className='px-6 py-2 rounded-full text-white font-semibold bg-[#255F47] border border-[#00FF94] hover:bg-[#2c7358] transition w-[150px] h-[80px] '>Saiba mais</Button>
+          </div>
+        </div>
 
       {/* Categorias */}
       <div className="mt-36 px-4 w-full">
-        <img src="/assets/Categorias.png" alt="label" className="w-[350px] ml-20" />
+        <img src="/assets/Categorias.png" alt="label" className="w-[250px] ml-20" />
 
         <div className="mt-8 mx-auto max-w-4xl grid grid-cols-2 gap-6">
           {categorias.map((categoria, i) => (
             <CardCategoria key={i} categoria={categoria} />
           ))}
         </div>
+
+        <div className=' mt-32 flex justify-center items-center'>
+            <Button className='px-6 py-2 rounded-full text-white font-semibold bg-[#255F47] border border-[#00FF94] hover:bg-[#2c7358] transition w-[150px] h-[80px] '>Saiba mais</Button>
+          </div>
       </div>
 
       {/* Recentes */}
       <div className="mt-36 px-4 w-full">
-        <img src="/assets/Recentes.png" alt="label" className="w-[350px] ml-20" />
+        <img src="/assets/Recentes.png" alt="label" className="w-[250px] ml-20" />
 
         <div className="mt-16 mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {eventosRecentes.map((evento, i) => (
             <CardEvento key={i} evento={evento} />
           ))}
         </div>
+        <div className=' mt-32 flex justify-center items-center'>
+            <Button className='px-6 py-2 rounded-full text-white font-semibold bg-[#255F47] border border-[#00FF94] hover:bg-[#2c7358] transition w-[150px] h-[80px] '>Saiba mais</Button>
+          </div>
       </div>
 
       <footer className="bg-[#00005E] text-white py-12 px-6 sm:px-20 flex flex-col sm:flex-row justify-between items-start gap-12 mt-96">
