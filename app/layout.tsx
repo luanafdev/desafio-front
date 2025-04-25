@@ -1,13 +1,11 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/components/navbar";
 import { AlertProvider } from "../contexts/AlertContext";
 import { Poppins } from 'next/font/google'
 
@@ -50,10 +48,10 @@ export default function RootLayout({
         )}
       >
       <Providers themeProps={{ attribute: "class" }}>
-          <div className="relative flex flex-col h-screen bg-[#333131]">
+          <div className="relative flex flex-col min-h-screen w-full bg-[#333131]">
           <AlertProvider> {/* Envolvendo toda a aplicação */}
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow ">
+            <main className="w-full flex-grow ">
               {children}
             </main>
         </AlertProvider>

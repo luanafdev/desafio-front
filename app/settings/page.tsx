@@ -8,6 +8,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import EventIcon from '@mui/icons-material/Event';
 import AnimatedImage from '@/components/AnimatedImage';
 import CardConfigLoja from '@/components/CardConfigLoja';
+import CardConfigEvento from '@/components/CardConfigEvento';
 
 type UserData = {
   id: number | null;
@@ -84,9 +85,9 @@ export default function LoginPage() {
     content: <CardConfigLoja usuario={user}/>,
   },
   {
-    tituloItem: `Bem vinda, ${user?.nome.split(" ")[0]}`,
+    tituloItem: `Bem vinda ${user?.nome.split(" ")[0]}, essses são seus eventos`,
     icon: EventIcon,
-    content: <></>,
+    content: <CardConfigEvento/>,
   },
  ];
 
