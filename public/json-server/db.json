@@ -15,197 +15,170 @@
       "qtdMin": 5
     }
   ],
-    "eventos": [
-      {
-        "id": "1",
-        "id_usuario": "3",
-        "titulo": "Noite Branca",
-        "local": "Circo Voador, Rio de Janeiro",
-        "data": "14/04/2025",
-        "descricao": "Show pra fechar os olhos, dançar lento e sentir tudo.",
-        "banner": "/assets/ivyson.jpg"
-      },
-      {
-        "id": "2",
-        "id_usuario": "3",
-        "titulo": "Florescer Ao vivo",
-        "local": "Auditório Ibirapuera, São Paulo",
-        "data": "20/08/2025",
-        "descricao": "Música fofinha, coração quentinho e coro alto! Bora florescer?",
-        "banner": "/assets/anavitoria.webp"
-      },
-      {
-        "id": "3",
-        "id_usuario": "3",
-        "titulo": "Me Desculpa Jay-Z",
-        "local": "Fundição Progresso, Rio de Janeiro",
-        "data": "18/09/2025",
-        "descricao": "Verso afiado, batida pesada e alma exposta.",
-        "banner": "/assets/images.jpeg"
-      },
-      {
-        "id": "4",
-        "id_usuario": "3",
-        "titulo": "Vibrance Live",
-        "local": "Estádio Mané Garrincha, Brasília",
-        "data": "14/09/2025",
-        "descricao": "Luz, vibe e drop pesado! O som vai bater no coração. Tá pronto?",
-        "banner": "/assets/alok.jpeg"
-      },
-      {
-        "id": "5",
-        "id_usuario": "3",
-        "titulo": "Escândalo Tour",
-        "local": "Allianz Parque",
-        "data": "20/08/2025",
-        "descricao": "Visual, voz e atitude: tudo no talo!. Vem causar com a Luísa!",
-        "banner": "/assets/luiza.jpg"
-      },
-      {
-        "id": "6",
-        "id_usuario": "3",
-        "titulo": "Baile Funk Experience",
-        "local": "Jeunesse Arena, Rio de Janeiro",
-        "data": "18/09/2025",
-        "descricao": "É baile, é funk, é explosão!. Vai perder esse fogo?",
-        "banner": "/assets/anitta.webp"
-      }
-    ],
-    "lote": [
-      {
-        "id": "1",
-        "evento_id": "1",
-        "nome": "Lote Promocional",
-        "preco": 40.00,
-        "quantidade_total": 150,
-        "quantidade_vendida": 120,
-        "data_inicio": "01/04/2025",
-        "data_fim": "07/04/2025",
-        "ativo": true
-      },
-      {
-        "id": "2",
-        "evento_id": "1",
-        "nome": "1º Lote",
-        "preco": 60.00,
-        "quantidade_total": 100,
-        "quantidade_vendida": 80,
-        "data_inicio": "08/04/2025",
-        "data_fim": "13/04/2025",
-        "ativo": true
-      },
-      {
-        "id": "3",
-        "evento_id": "2",
-        "nome": "Lote Promocional",
-        "preco": 45.00,
-        "quantidade_total": 120,
-        "quantidade_vendida": 100,
-        "data_inicio": "01/07/2025",
-        "data_fim": "07/07/2025",
-        "ativo": true
-      },
-      {
-        "id": "4",
-        "evento_id": "2",
-        "nome": "1º Lote",
-        "preco": 70.00,
-        "quantidade_total": 150,
-        "quantidade_vendida": 90,
-        "data_inicio": "08/07/2025",
-        "data_fim": "19/08/2025",
-        "ativo": true
-      },
-      {
-        "id": "5",
-        "evento_id": "3",
-        "nome": "Lote Promocional",
-        "preco": 55.00,
-        "quantidade_total": 130,
-        "quantidade_vendida": 110,
-        "data_inicio": "01/08/2025",
-        "data_fim": "10/08/2025",
-        "ativo": true
-      },
-      {
-        "id": "6",
-        "evento_id": "3",
-        "nome": "1º Lote",
-        "preco": 80.00,
-        "quantidade_total": 170,
-        "quantidade_vendida": 60,
-        "data_inicio": "11/08/2025",
-        "data_fim": "17/09/2025",
-        "ativo": true
-      },
-      {
-        "id": "7",
-        "evento_id": "4",
-        "nome": "Lote Promocional",
-        "preco": 65.00,
-        "quantidade_total": 100,
-        "quantidade_vendida": 30,
-        "data_inicio": "01/08/2025",
-        "data_fim": "10/08/2025",
-        "ativo": true
-      },
-      {
-        "id": "8",
-        "evento_id": "4",
-        "nome": "1º Lote",
-        "preco": 85.00,
-        "quantidade_total": 150,
-        "quantidade_vendida": 10,
-        "data_inicio": "11/08/2025",
-        "data_fim": "13/09/2025",
-        "ativo": true
-      },
-      {
-        "id": "9",
-        "evento_id": "5",
-        "nome": "Lote Promocional",
-        "preco": 50.00,
-        "quantidade_total": 90,
-        "quantidade_vendida": 25,
-        "data_inicio": "01/07/2025",
-        "data_fim": "07/07/2025",
-        "ativo": true
-      },
-      {
-        "id": "10",
-        "evento_id": "5",
-        "nome": "1º Lote",
-        "preco": 75.00,
-        "quantidade_total": 110,
-        "quantidade_vendida": 15,
-        "data_inicio": "08/07/2025",
-        "data_fim": "19/08/2025",
-        "ativo": true
-      },
-      {
-        "id": "11",
-        "evento_id": "6",
-        "nome": "Lote Promocional",
-        "preco": 45.00,
-        "quantidade_total": 120,
-        "quantidade_vendida": 35,
-        "data_inicio": "01/08/2025",
-        "data_fim": "10/08/2025",
-        "ativo": true
-      },
-      {
-        "id": "12",
-        "evento_id": "6",
-        "nome": "1º Lote",
-        "preco": 70.00,
-        "quantidade_total": 140,
-        "quantidade_vendida": 20,
-        "data_inicio": "11/08/2025",
-        "data_fim": "17/09/2025",
-        "ativo": true
-      }
-    ],
-  "categorias":[ 
+  "eventos": [
+    {
+      "id": "1",
+      "id_usuario": "3",
+      "titulo": "Noite Branca",
+      "local": "Circo Voador, Rio de Janeiro",
+      "data": "14/04/2025",
+      "descricao": "Show pra fechar os olhos, dançar lento e sentir tudo.",
+      "banner": "/assets/ivyson.jpg"
+    },
+    {
+      "id": "5",
+      "id_usuario": "3",
+      "titulo": "Escândalo Tour",
+      "local": "Allianz Parque",
+      "data": "20/08/2025",
+      "descricao": "Visual, voz e atitude: tudo no talo!. Vem causar com a Luísa!",
+      "banner": "/assets/luiza.jpg"
+    },
+    {
+      "id": "6",
+      "id_usuario": "3",
+      "titulo": "Baile Funk Experience",
+      "local": "Jeunesse Arena, Rio de Janeiro",
+      "data": "18/09/2025",
+      "descricao": "É baile, é funk, é explosão!. Vai perder esse fogo?",
+      "banner": "/assets/anitta.webp"
+    }
+  ],
+  "lote": [
+    {
+      "id": "1",
+      "evento_id": "1",
+      "nome": "Lote Promocional",
+      "preco": 40,
+      "quantidade_total": 150,
+      "quantidade_vendida": 120,
+      "data_inicio": "01/04/2025",
+      "data_fim": "07/04/2025",
+      "ativo": true
+    },
+    {
+      "id": "2",
+      "evento_id": "1",
+      "nome": "1º Lote",
+      "preco": 60,
+      "quantidade_total": 100,
+      "quantidade_vendida": 80,
+      "data_inicio": "08/04/2025",
+      "data_fim": "13/04/2025",
+      "ativo": true
+    },
+    {
+      "id": "3",
+      "evento_id": "2",
+      "nome": "Lote Promocional",
+      "preco": 45,
+      "quantidade_total": 120,
+      "quantidade_vendida": 100,
+      "data_inicio": "01/07/2025",
+      "data_fim": "07/07/2025",
+      "ativo": true
+    },
+    {
+      "id": "4",
+      "evento_id": "2",
+      "nome": "1º Lote",
+      "preco": 70,
+      "quantidade_total": 150,
+      "quantidade_vendida": 90,
+      "data_inicio": "08/07/2025",
+      "data_fim": "19/08/2025",
+      "ativo": true
+    },
+    {
+      "id": "5",
+      "evento_id": "3",
+      "nome": "Lote Promocional",
+      "preco": 55,
+      "quantidade_total": 130,
+      "quantidade_vendida": 110,
+      "data_inicio": "01/08/2025",
+      "data_fim": "10/08/2025",
+      "ativo": true
+    },
+    {
+      "id": "6",
+      "evento_id": "3",
+      "nome": "1º Lote",
+      "preco": 80,
+      "quantidade_total": 170,
+      "quantidade_vendida": 60,
+      "data_inicio": "11/08/2025",
+      "data_fim": "17/09/2025",
+      "ativo": true
+    },
+    {
+      "id": "7",
+      "evento_id": "4",
+      "nome": "Lote Promocional",
+      "preco": 65,
+      "quantidade_total": 100,
+      "quantidade_vendida": 30,
+      "data_inicio": "01/08/2025",
+      "data_fim": "10/08/2025",
+      "ativo": true
+    },
+    {
+      "id": "8",
+      "evento_id": "4",
+      "nome": "1º Lote",
+      "preco": 85,
+      "quantidade_total": 150,
+      "quantidade_vendida": 10,
+      "data_inicio": "11/08/2025",
+      "data_fim": "13/09/2025",
+      "ativo": true
+    },
+    {
+      "id": "9",
+      "evento_id": "5",
+      "nome": "Lote Promocional",
+      "preco": 50,
+      "quantidade_total": 90,
+      "quantidade_vendida": 25,
+      "data_inicio": "01/07/2025",
+      "data_fim": "07/07/2025",
+      "ativo": true
+    },
+    {
+      "id": "10",
+      "evento_id": "5",
+      "nome": "1º Lote",
+      "preco": 75,
+      "quantidade_total": 110,
+      "quantidade_vendida": 15,
+      "data_inicio": "08/07/2025",
+      "data_fim": "19/08/2025",
+      "ativo": true
+    },
+    {
+      "id": "11",
+      "evento_id": "6",
+      "nome": "Lote Promocional",
+      "preco": 45,
+      "quantidade_total": 120,
+      "quantidade_vendida": 35,
+      "data_inicio": "01/08/2025",
+      "data_fim": "10/08/2025",
+      "ativo": true
+    },
+    {
+      "id": "12",
+      "evento_id": "6",
+      "nome": "1º Lote",
+      "preco": 70,
+      "quantidade_total": 140,
+      "quantidade_vendida": 20,
+      "data_inicio": "11/08/2025",
+      "data_fim": "17/09/2025",
+      "ativo": true
+    }
+  ],
+  "categorias": [
     {
       "id": "1",
       "descricao": "R&B",
@@ -224,7 +197,7 @@
     {
       "id": "4",
       "descricao": "Eletrônica",
-      "image":"/assets/eletronica.jpeg"
+      "image": "/assets/eletronica.jpeg"
     }
   ]
 }
