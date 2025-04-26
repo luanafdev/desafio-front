@@ -1,6 +1,9 @@
 import {
   Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
-  Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter
+  Button, Modal, ModalContent, ModalHeader, ModalBody, Input,
+  ModalFooter,
+  DatePicker,
+  DateValue
 } from "@heroui/react";
 import { useEffect, useState } from "react";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -8,6 +11,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { useAlert } from "@/contexts/AlertContext";
 import FileInput, { Banner } from "./InputImage"; // Importe a interface Banner
+import { CalendarDate, parseDate } from "@internationalized/date";
 
 type Evento = {
   id: string;
@@ -24,9 +28,24 @@ const CardConfigEvento = () => {
   const [erro, setErro] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
-  const [novoBanner, setNovoBanner] = useState<string | null>(null);
   const eventoSelecionado = eventos.find(e => e.id === selectedId);
+  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [local, setLocal] = useState<string | null>(null);
+  const [data, setData] = useState<CalendarDate | null>(null);
+  const [descricao, setDescricao] = useState<string | null>(null);
+  const [novoBanner, setNovoBanner] = useState<string | null>(null);
+
+  const [titulo, setTitulo] = useState<string | null>(null); // Inicializa vazio
+
+  // Você pode usar um useEffect para atualizar o título quando o evento selecionado mudar
+  useEffect(() => {
+    
+      setTitulo(eventoSelecionado?.titulo!);
+      setLocal(eventoSelecionado?.local!)
+      setLocal(eventoSelecionado?.descricao!)
+    
+  }, []);
 
   const { showAlert } = useAlert();
 
@@ -69,6 +88,18 @@ const CardConfigEvento = () => {
       setNovoBanner(null);
   };
 
+  const openEditModal = (id: string) => {
+      setSelectedId(id);
+      setIsEditModalOpen(true);
+      setNovoBanner(null); // Resetar o novo banner ao abrir o modal
+  };
+
+  const closeEditModal = () => {
+      setIsEditModalOpen(false);
+      setSelectedId(null);
+      setNovoBanner(null);
+  };
+
   const handleDelete = async () => {
       if (!selectedId) return;
 
@@ -92,7 +123,7 @@ const CardConfigEvento = () => {
 
       try {
           const res = await fetch(`http://localhost:5000/eventos/${selectedId}`, {
-              method: "PATCH", // ou PUT, dependendo do que seu JSON Server aceita
+              method: "PATCH", //  ou PUT, dependendo do que seu JSON Server aceita
               headers: {
                   "Content-Type": "application/json",
               },
@@ -110,10 +141,80 @@ const CardConfigEvento = () => {
           console.error("Erro ao salvar banner:", err);
           showAlert("Erro ao salvar banner", "danger");
       } finally {
-          closeBannerModal();
+            closeEditModal();
           setNovoBanner(null); // Limpa o base64 após salvar
       }
   };
+
+  const handleSaveEvento = async () => {
+    if (!selectedId) return;
+  
+    const eventoAtualizado = {
+      titulo,
+      descricao,
+      local,
+      data,
+      banner: novoBanner ?? eventoSelecionado?.banner ?? "",
+      // adicione outros campos se houver
+    };
+  
+    try {
+      const res = await fetch(`http://localhost:5000/eventos/${selectedId}`, {
+        method: "PATCH", // ou "PUT" se for substituir tudo
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventoAtualizado),
+      });
+  
+      if (!res.ok) throw new Error("Erro ao salvar evento");
+  
+      const eventoSalvo = await res.json();
+  
+      setEventos(prev =>
+        prev.map(ev =>
+          ev.id === selectedId ? { ...ev, ...eventoSalvo } : ev
+        )
+      );
+  
+      showAlert("Evento salvo com sucesso", "success");
+    } catch (err) {
+      console.error("Erro ao salvar evento:", err);
+      showAlert("Erro ao salvar evento", "danger");
+    } finally {
+      setNovoBanner(null); // limpa banner base64 temporário
+      closeBannerModal();  // se quiser fechar modal após salvar
+    }
+  };
+  
+  function formatDateValueToBR(dateValue: DateValue): string {
+    const day = String(dateValue.day).padStart(2, "0");
+    const month = String(dateValue.month).padStart(2, "0");
+    const year = dateValue.year;
+    return `${day}/${month}/${year}`;
+  }
+
+  
+function stringToDateValue(dateStr?: string | null) {
+  if (!dateStr || typeof dateStr !== "string") return null;
+
+  const trimmed = dateStr.trim();
+
+  // ISO: yyyy-MM-dd
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return parseDate(trimmed);
+  }
+
+  // BR: dd/MM/yyyy
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(trimmed)) {
+    const [dia, mes, ano] = trimmed.split("/");
+    return parseDate(`${ano}-${mes}-${dia}`);
+  }
+
+  // Se ainda assim não reconhecer, retorna null sem quebrar
+  console.warn("Formato de data inválido:", dateStr);
+  return null;
+}
 
 
   const columns = [
@@ -147,7 +248,7 @@ const CardConfigEvento = () => {
                                       <TableCell>{evento.data}</TableCell>
                                       <TableCell>
                                           <div className="flex gap-2">
-                                              <Button isIconOnly>
+                                              <Button isIconOnly onPress={() => openEditModal(evento.id)}>
                                                   <ModeEditOutlineOutlinedIcon />
                                               </Button>
                                               <Button isIconOnly onPress={() => openBannerModal(evento.id)}>
@@ -228,6 +329,127 @@ const CardConfigEvento = () => {
                   )}
               </ModalContent>
           </Modal>
+
+        {/* Modal Editar evento */}
+        <Modal isOpen={isEditModalOpen} placement="top-center" onOpenChange={setIsEditModalOpen}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Editar Evento</ModalHeader>
+              <ModalBody>
+
+              <Input
+                label="Título"
+                defaultValue={eventoSelecionado?.titulo}
+                onChange={(e) => 
+                  setTitulo(e.target.value)
+                }
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
+
+            <Input
+                label="Local"
+                defaultValue={eventoSelecionado?.local}
+                onChange={(e) => setLocal(e.target.value)}
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
+
+            <Input
+                label="Descrição"
+                defaultValue={eventoSelecionado?.descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                classNames={{
+                label: "text-black/50 dark:text-white/90",
+                input: [
+                    "bg-transparent",
+                    "text-black/90 dark:text-white/90",
+                    "placeholder:text-default-700/50 dark:placeholder:text-white/60",
+                ],
+                innerWrapper: "bg-transparent",
+                inputWrapper: [
+                    "shadow-xl",
+                    "bg-default-200/50",
+                    "dark:bg-default/60",
+                    "backdrop-blur-xl",
+                    "backdrop-saturate-200",
+                    "hover:bg-default-200/70",
+                    "dark:hover:bg-default/70",
+                    "group-data-[focus=true]:bg-default-200/50",
+                    "dark:group-data-[focus=true]:bg-default/60",
+                    "!cursor-text",
+                ],
+                }}
+            />
+                  <DatePicker
+                  classNames={{
+                    label: "text-white",
+                    input: "text-white placeholder-white",
+                    innerWrapper: "text-white",
+                    inputWrapper: "border-white before:border-white after:border-white hover:border-white"
+                  }}
+                  variant="underlined"
+                  className="max-w-[284px]"
+                  label="Data"
+                  defaultValue={stringToDateValue(eventoSelecionado?.data!)}
+                  onChange={(novaData) =>
+                    setData(novaData ? formatDateValueToBR(novaData) : "")
+                  }
+                  ></DatePicker>
+                
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="flat" onPress={onClose}>
+                  Fechar
+                </Button>
+                <Button color="primary" onPress={handleSaveEvento}>
+                  Salvar Alterações
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
       </>
   );
 }
