@@ -177,13 +177,13 @@ const CardConfigEvento = () => {
         )
       );
   
-      showAlert("Evento salvo com sucesso", "success");
     } catch (err) {
-      console.error("Erro ao salvar evento:", err);
-      showAlert("Erro ao salvar evento", "danger");
+        console.error("Erro ao salvar evento:", err);
+        showAlert("Erro ao salvar evento", "danger");
     } finally {
-      setNovoBanner(null); // limpa banner base64 temporário
-      closeBannerModal();  // se quiser fechar modal após salvar
+        setNovoBanner(null); // limpa banner base64 temporário
+        closeBannerModal();  // se quiser fechar modal após salvar
+        showAlert("Evento salvo com sucesso", "success");
     }
   };
   

@@ -9,6 +9,8 @@ import EventIcon from '@mui/icons-material/Event';
 import AnimatedImage from '@/components/AnimatedImage';
 import CardConfigLoja from '@/components/CardConfigLoja';
 import CardConfigEvento from '@/components/CardConfigEvento';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import CardConfigCupons from '@/components/CardCupons';
 
 type UserData = {
   id: number | null;
@@ -88,6 +90,11 @@ export default function LoginPage() {
     tituloItem: `Bem vinda ${user?.nome.split(" ")[0]}, essses são seus eventos`,
     icon: EventIcon,
     content: <CardConfigEvento/>,
+  },
+  {
+    tituloItem: `Bem vinda ${user?.nome.split(" ")[0]}, essses são seus cupons`,
+    icon: ConfirmationNumberIcon,
+    content: <CardConfigCupons/>,
   },
  ];
 
