@@ -14,6 +14,7 @@ import CardConfigCupons from '@/components/CardCupons';
 import EventSeatIcon from '@mui/icons-material/EventSeat';
 import CardConfigSetores from '@/components/CardConfigSetor';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import CardConfigLotes from '@/components/CardConfigLote';
 
 type UserData = {
   id: number | null;
@@ -103,6 +104,11 @@ export default function LoginPage() {
     tituloItem: `Setores`,
     icon: EventSeatIcon,
     content: <CardConfigSetores/>,
+  },
+  {
+    tituloItem: `Lotes`,
+    icon: MonetizationOnIcon,
+    content: <CardConfigLotes/>,
   },
  ];
 
