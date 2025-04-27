@@ -12,6 +12,8 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { useAlert } from "@/contexts/AlertContext";
 import FileInput, { Banner } from "./InputImage"; // Importe a interface Banner
 import { CalendarDate, parseDate } from "@internationalized/date";
+import AddIcon from '@mui/icons-material/Add';
+
 
 type Evento = {
   id: string;
@@ -23,18 +25,25 @@ type Evento = {
 };
 
 const CardConfigEvento = () => {
-  const [eventos, setEventos] = useState<Evento[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [erro, setErro] = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const eventoSelecionado = eventos.find(e => e.id === selectedId);
-  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [local, setLocal] = useState<string | null>(null);
-  const [data, setData] = useState<CalendarDate | null>(null);
-  const [descricao, setDescricao] = useState<string | null>(null);
-  const [novoBanner, setNovoBanner] = useState<string | null>(null);
+
+    const [eventos, setEventos] = useState<Evento[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [erro, setErro] = useState<string | null>(null);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const eventoSelecionado = eventos.find(e => e.id === selectedId);
+    const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [local, setLocal] = useState<string | null>(null);
+    const [data, setData] = useState<CalendarDate | null>(null);
+    const [descricao, setDescricao] = useState<string | null>(null);
+    const [novoBanner, setNovoBanner] = useState<string | null>(null);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [novoTitulo, setNovoTitulo] = useState<string>("");
+    const [novoLocal, setNovoLocal] = useState<string>("");
+    const [novoDescricao, setNovoDescricao] = useState<string>("");
+    const [novoData, setNovoData] = useState<DateValue | null>(null);
+    const [novoBannerBase64, setNovoBannerBase64] = useState<string | null>(null);
 
   const [titulo, setTitulo] = useState<string | null>(null); // Inicializa vazio
 
@@ -98,6 +107,42 @@ const CardConfigEvento = () => {
       setIsEditModalOpen(false);
       setSelectedId(null);
       setNovoBanner(null);
+  };
+
+  const handleAddEvento = async () => {
+    const eventoNovo = {
+      id: Math.random().toString(36).substring(2, 10), // cria um id aleatório
+      titulo: novoTitulo,
+      local: novoLocal,
+      descricao: novoDescricao,
+      data: novoData ? formatDateValueToBR(novoData) : "",
+      banner: novoBannerBase64 ?? "",
+    };
+  
+    try {
+      const res = await fetch(`http://localhost:5000/eventos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(eventoNovo),
+      });
+  
+      if (!res.ok) throw new Error("Erro ao adicionar evento");
+  
+      setEventos(prev => [...prev, eventoNovo]);
+      showAlert("Evento adicionado com sucesso!", "success");
+  
+      // Limpa estados
+      setNovoTitulo("");
+      setNovoLocal("");
+      setNovoDescricao("");
+      setNovoData(null);
+      setNovoBannerBase64(null);
+      setIsAddModalOpen(false);
+  
+    } catch (err) {
+      console.error("Erro ao adicionar evento:", err);
+      showAlert("Erro ao adicionar evento", "danger");
+    }
   };
 
   const handleDelete = async () => {
@@ -174,7 +219,7 @@ const CardConfigEvento = () => {
       setEventos(prev =>
         prev.map(ev =>
           ev.id === selectedId ? { ...ev, ...eventoSalvo } : ev
-        )
+        )   
       );
   
     } catch (err) {
@@ -266,6 +311,13 @@ function stringToDateValue(dateStr?: string | null) {
                   )}
               </div>
           </div>
+
+            <div className="relative mb-6">
+                <Button onPress={() => setIsAddModalOpen(true)} className="absolute right-6 bottom-6 px-6 py-2 rounded-full text-white font-semibold bg-[#255F47] border border-[#00FF94] hover:bg-[#2c7358] transition w-[150px] h-[50px]">
+                    <AddIcon className="-mr-2" ></AddIcon>
+                    Adicionar evento
+                </Button>
+            </div>
 
           {/* Modal confirmação */}
           <Modal isOpen={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} placement="top-center">
@@ -449,6 +501,65 @@ function stringToDateValue(dateStr?: string | null) {
           )}
         </ModalContent>
       </Modal>
+
+
+
+      <Modal isOpen={isAddModalOpen} placement="top-center" onOpenChange={setIsAddModalOpen}>
+        <ModalContent>
+            {(onClose) => (
+            <>
+                <ModalHeader className="flex flex-col gap-1">Novo Evento</ModalHeader>
+                <ModalBody>
+
+                <Input
+                    label="Título"
+                    value={novoTitulo}
+                    onChange={(e) => setNovoTitulo(e.target.value)}
+                />
+                <Input
+                    label="Local"
+                    value={novoLocal}
+                    onChange={(e) => setNovoLocal(e.target.value)}
+                />
+                <Input
+                    label="Descrição"
+                    value={novoDescricao}
+                    onChange={(e) => setNovoDescricao(e.target.value)}
+                />
+
+                <DatePicker
+                    classNames={{
+                    label: "text-white",
+                    input: "text-white placeholder-white",
+                    innerWrapper: "text-white",
+                    inputWrapper: "border-white before:border-white after:border-white hover:border-white"
+                    }}
+                    variant="underlined"
+                    className="max-w-[284px]"
+                    label="Data"
+                    value={novoData}
+                    onChange={(date) => setNovoData(date)}
+                />
+
+                <FileInput
+                    existingBannerUrl={null}
+                    onNewBase64={(base64) => setNovoBannerBase64(base64)}
+                    onRemoveExistingBanner={() => setNovoBannerBase64(null)}
+                />
+
+                </ModalBody>
+                <ModalFooter>
+                <Button color="danger" variant="flat" onPress={onClose}>
+                    Cancelar
+                </Button>
+                <Button color="primary" onPress={handleAddEvento}>
+                    Salvar Evento
+                </Button>
+                </ModalFooter>
+            </>
+            )}
+            </ModalContent>
+        </Modal>
 
       </>
   );
