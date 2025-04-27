@@ -17,13 +17,31 @@
   ],
   "eventos": [
     {
-      "id": "1",
+      "id": "2",
       "id_usuario": "3",
-      "titulo": "Noite Branca",
-      "local": "Circo Voador, Rio de Janeiro",
-      "data": "14/04/2025",
-      "descricao": "Show pra fechar os olhos, dançar lento e sentir tudo.",
-      "banner": "/assets/ivyson.jpg"
+      "titulo": "Florescer Ao vivo",
+      "local": "Auditório Ibirapuera, São Paulo",
+      "data": "20/08/2025",
+      "descricao": "Música fofinha, coração quentinho e coro alto! Bora florescer?",
+      "banner": "/assets/anavitoria.webp"
+    },
+    {
+      "id": "3",
+      "id_usuario": "3",
+      "titulo": "Me Desculpa Jay-Z",
+      "local": "Fundição Progresso, Rio de Janeiro",
+      "data": "18/09/2025",
+      "descricao": "Verso afiado, batida pesada e alma exposta.",
+      "banner": "/assets/images.jpeg"
+    },
+    {
+      "id": "4",
+      "id_usuario": "3",
+      "titulo": "Vibrance Live",
+      "local": "Estádio Mané Garrincha, Brasília",
+      "data": "14/09/2025",
+      "descricao": "Luz, vibe e drop pesado! O som vai bater no coração. Tá pronto?",
+      "banner": "/assets/alok.jpeg"
     },
     {
       "id": "5",
@@ -44,7 +62,7 @@
       "banner": "/assets/anitta.webp"
     }
   ],
-  "lote": [
+  "lotes": [
     {
       "id": "1",
       "evento_id": "1",
@@ -198,6 +216,49 @@
       "id": "4",
       "descricao": "Eletrônica",
       "image": "/assets/eletronica.jpeg"
+    }
+  ],
+  "cupons": [
+    {
+      "id": "1",
+      "titulo": "CUPON20",
+      "validade": "30/06/2025",
+      "quantidade": 30
+    },
+    {
+      "id": "2",
+      "titulo": "CUPON30",
+      "validade": "15/06/2025",
+      "quantidade": 30
+    },
+    {
+      "id": "e5a3ca04-b805-4c6d-8fb2-e9903f864cb9",
+      "titulo": "CUPON15",
+      "validade": "25/10/2025",
+      "quantidade": 20
+    }
+  ],
+ "setores": [
+    {
+      "id": "1",
+      "eventoId": "1",
+      "nome": "Pista",
+      "capacidade": 5000,
+      "descricao": "Área comum em frente ao palco, sem cadeiras."
+    },
+    {
+      "id": "2",
+      "eventoId": "2",
+      "nome": "Camarote",
+      "capacidade": 500,
+      "descricao": "Área exclusiva com visão privilegiada e serviço de open bar."
+    },
+    {
+      "id": "3",
+      "eventoId": "3",  
+      "nome": "Área VIP",
+      "capacidade": 300,
+      "descricao": "Espaço reservado próximo ao palco, com entrada especial."
     }
   ]
 }

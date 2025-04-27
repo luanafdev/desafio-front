@@ -8,7 +8,7 @@ import { formatCPF, formatCNPJ, formatTelefone } from "@/expressoes-regulares/re
 import { useAlert } from "@/contexts/AlertContext"; 
 
 export default function CardCadastroCliente() {
-  const [id, setId] = useState(null);
+  const [id, setId] = useState<number>();
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -21,6 +21,8 @@ export default function CardCadastroCliente() {
     const {showAlert} = useAlert()
 
   const handleSubmit = async () => {
+
+    setId(Math.random());
     const dadosUsuario = {
       id,
       nome,
