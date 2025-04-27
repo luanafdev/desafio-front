@@ -50,7 +50,7 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
   
     try {
       const response = await fetch(`http://localhost:5000/users/${usuario.id}`, {
-        method: "PATCH", // ou "PUT" se quiser substituir tudo
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,17 +58,23 @@ const CardMeuPerfil: React.FC<CardMeuPerfilProps> = ({ usuario }) => {
       });
   
       if (response.ok) {
+        const usuarioAtualizado = await response.json();
+  
+        // Atualiza localStorage
+        localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+  
         showAlert("Usuário atualizado com sucesso!", "success");
       } else {
         const errorData = await response.json();
-        showAlert("Erro ao atualizar usuário.", "danger");
         console.error("Erro:", errorData);
+        showAlert("Erro ao atualizar usuário.", "danger");
       }
     } catch (error) {
-      showAlert("Erro na requisição.", "danger");
       console.error("Erro ao atualizar:", error);
+      showAlert("Erro na requisição.", "danger");
     }
   };
+  
   
 
   return (
