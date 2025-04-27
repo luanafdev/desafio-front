@@ -218,7 +218,7 @@
       "image": "/assets/eletronica.jpeg"
     }
   ],
-  "cupons":[
+  "cupons": [
     {
       "id": "1",
       "titulo": "CUPON20",
@@ -230,6 +230,12 @@
       "titulo": "CUPON30",
       "validade": "15/06/2025",
       "quantidade": 30
+    },
+    {
+      "id": "e5a3ca04-b805-4c6d-8fb2-e9903f864cb9",
+      "titulo": "CUPON15",
+      "validade": "25/10/2025",
+      "quantidade": 20
     }
   ]
 }

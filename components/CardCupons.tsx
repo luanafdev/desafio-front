@@ -1,7 +1,8 @@
 import {
     Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
     Button, Modal, ModalContent, ModalHeader, ModalBody, Input,
-    ModalFooter, DatePicker
+    ModalFooter, DatePicker,
+    useDisclosure
   } from "@heroui/react";
   import { useEffect, useState } from "react";
   import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -9,6 +10,7 @@ import {
   import { useAlert } from "@/contexts/AlertContext";
   import { CalendarDate, parseDate } from "@internationalized/date";
   import { DateValue } from "@react-types/calendar";
+  import AddIcon from '@mui/icons-material/Add';
   
   type Cupom = {
     id: string;
@@ -24,7 +26,7 @@ import {
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const cupomSelecionado = cupons.find(c => c.id === selectedId);
   
     const [titulo, setTitulo] = useState<string | null>(null);
@@ -142,6 +144,42 @@ import {
       console.warn("Formato de data inválido:", dateStr);
       return null;
     }
+
+    const handleCreateCupom = async () => {
+        if (!titulo || !validade || quantidade == null) return;
+    
+        const novoCupom: Cupom = {
+          id: crypto.randomUUID(),
+          titulo,
+          validade: formatDateValueToBR(validade),
+          quantidade,
+        };
+    
+        try {
+          const res = await fetch("http://localhost:5000/cupons", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(novoCupom),
+          });
+    
+          if (!res.ok) throw new Error("Erro ao criar cupom");
+    
+          setCupons((prev) => [...prev, novoCupom]);
+          onOpenChange(); // Fecha o modal
+          resetForm();
+        } catch (err) {
+          console.error("Erro ao criar cupom:", err);
+        }
+      };
+    
+      const resetForm = () => {
+        setTitulo("");
+        setValidade(null);
+        setQuantidade(null);
+      };
+    
   
     const columns = [
       { key: "titulo", label: "TÍTULO" },
@@ -187,8 +225,18 @@ import {
                 </TableBody>
               </Table>
             )}
+
           </div>
+          
+          
         </div>
+
+        <div className="relative mb-6">
+                <Button onPress={onOpen} className="absolute right-6 bottom-6 px-6 py-2 rounded-full text-white font-semibold bg-[#255F47] border border-[#00FF94] hover:bg-[#2c7358] transition w-[150px] h-[50px]">
+                    <AddIcon className="-mr-2" ></AddIcon>
+                    Adicionar cupom
+                </Button>
+            </div>
   
         {/* Modal Excluir */}
         <Modal isOpen={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} placement="top-center">
@@ -252,6 +300,56 @@ import {
             )}
           </ModalContent>
         </Modal>
+
+
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent className="bg-[#353536] text-white">
+          <ModalHeader>Criar Novo Cupom</ModalHeader>
+          <ModalBody>
+            <Input
+              label="Título"
+              placeholder="Digite o título do cupom"
+              onChange={(e) => setTitulo(e.target.value)}
+              classNames={{
+                label: "text-white",
+                input: "text-white",
+                inputWrapper: "border-white hover:border-white",
+              }}
+            />
+            <DatePicker
+              label="Validade"
+              variant="underlined"
+              className="max-w-[284px]"
+              classNames={{
+                label: "text-white",
+                input: "text-white placeholder-white",
+                innerWrapper: "text-white",
+                inputWrapper: "border-white hover:border-white",
+              }}
+              onChange={(data) => setValidade(data)}
+            />
+            <Input
+              label="Quantidade"
+              type="number"
+              placeholder="Digite a quantidade"
+              onChange={(e) => setQuantidade(parseInt(e.target.value))}
+              classNames={{
+                label: "text-white",
+                input: "text-white",
+                inputWrapper: "border-white hover:border-white",
+              }}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" variant="light" onPress={onOpenChange}>
+              Cancelar
+            </Button>
+            <Button color="primary" onPress={handleCreateCupom}>
+              Salvar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
       </>
     );
   }
