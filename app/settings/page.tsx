@@ -11,6 +11,9 @@ import CardConfigLoja from '@/components/CardConfigLoja';
 import CardConfigEvento from '@/components/CardConfigEvento';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import CardConfigCupons from '@/components/CardCupons';
+import EventSeatIcon from '@mui/icons-material/EventSeat';
+import CardConfigSetores from '@/components/CardConfigSetor';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 type UserData = {
   id: number | null;
@@ -87,14 +90,19 @@ export default function LoginPage() {
     content: <CardConfigLoja usuario={user}/>,
   },
   {
-    tituloItem: `Bem vinda ${user?.nome.split(" ")[0]}, essses são seus eventos`,
+    tituloItem: `Esses são seus eventos!`,
     icon: EventIcon,
     content: <CardConfigEvento/>,
   },
   {
-    tituloItem: `Bem vinda ${user?.nome.split(" ")[0]}, essses são seus cupons`,
+    tituloItem: `Esses são seus cupons!`,
     icon: ConfirmationNumberIcon,
     content: <CardConfigCupons/>,
+  },
+  {
+    tituloItem: `Setores`,
+    icon: EventSeatIcon,
+    content: <CardConfigSetores/>,
   },
  ];
 

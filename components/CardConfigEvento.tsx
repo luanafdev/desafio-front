@@ -200,6 +200,7 @@ const CardConfigEvento = () => {
       local,
       data,
       banner: novoBanner ?? eventoSelecionado?.banner ?? "",
+      id_usuario: "3"
       // adicione outros campos se houver
     };
   
