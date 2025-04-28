@@ -1,4 +1,5 @@
 import { Card, CardBody, Image, CardFooter, CardHeader } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 type Evento = {
   id: string;
@@ -19,8 +20,14 @@ const CardEvento: React.FC<CardEventoProps> = ({ evento }) => {
     month: "short",
   }).toUpperCase();
 
+  const router = useRouter();
+
+  function redirectToCheckout() {
+    router.push(`/checkout/${evento.id}`);
+  }
+
   return (
-    <Card  isPressable  className=" overflow-hidden flex flex-col justify-between bg-white">
+    <Card  isPressable onPress={redirectToCheckout} className=" overflow-hidden flex flex-col justify-between bg-white">
       <CardBody className="p-0 h-full">
         <Image
           src={evento.banner}
