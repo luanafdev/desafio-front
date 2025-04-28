@@ -91,7 +91,7 @@ const CheckoutPage = () => {
       {/* Coluna da esquerda */}
       <div className="w-2/3 bg-default  p-6 rounded-lg shadow">
         <h2 className="text-2xl font-bold mb-4">{evento.titulo}</h2>
-        <img src={evento.banner} alt={evento.titulo} className="w-full h-64 object-cover rounded-lg mb-4" />
+        <img src={evento.banner} alt={evento.titulo} className="w-full h-96 object-cover rounded-lg mb-4" />
         
         <p className="mb-2"><strong>Local:</strong> {evento.local}</p>
         <p className="mb-2"><strong>Data:</strong> {evento.data}</p>
